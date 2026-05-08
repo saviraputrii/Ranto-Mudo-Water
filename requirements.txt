@@ -1,0 +1,6 @@
+streamlit
+pandas
+numpy
+qrcode
+pillow
+openpyxl
