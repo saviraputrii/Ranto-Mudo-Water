@@ -16,12 +16,12 @@ st.markdown("""
 
 /* Background utama */
 .stApp {
-    background: linear-gradient(to bottom right, #caf0f8, #90e0ef);
+    background: linear-gradient(to bottom right, #EED9C4, #CBB89D);
 }
 
 /* Sidebar */
 section[data-testid="stSidebar"] {
-    background: linear-gradient(180deg, #0077b6, #023e8a);
+    background: linear-gradient(180deg, #6c757d, #c0c0c0);
 }
 
 /* Tulisan sidebar */
