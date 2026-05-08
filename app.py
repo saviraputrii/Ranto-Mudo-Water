@@ -66,8 +66,8 @@ if menu == "Dashboard":
     <h3>📌 Informasi Usaha</h3>
     <p>
     Selamat datang di aplikasi manajemen usaha galon isi ulang.
-    Aplikasi ini membantu pencatatan pelanggan, stok galon,
-    transaksi penjualan, pengantaran, serta laporan usaha.
+    Aplikasi ini untuk pencatatan pelanggan, stok galon,
+    transaksi penjualan, pengantaran,tagihan, serta laporan usaha.
     </p>
     </div>
     """, unsafe_allow_html=True)
@@ -265,11 +265,11 @@ elif menu == "Pengantaran":
     st.dataframe(st.session_state.pengantaran, use_container_width=True)
 
 # =========================
-# PEMBAYARAN
+# Tagihan
 # =========================
-elif menu == "PEMBAYARAN":
+elif menu == "Tagihan":
 
-    st.title("💰 Pembayaran 💸 ")
+    st.title("📒 Tagihan 💸")
 
     pelanggan_list = (
         st.session_state.pelanggan["Nama"].tolist()
@@ -290,21 +290,21 @@ elif menu == "PEMBAYARAN":
             step=1000
         )
 
-        submit_hutang = st.form_submit_button("Tambah Hutang")
+        submit_hutang = st.form_submit_button("Tambah Tagihan")
 
         if submit_hutang:
 
             data_hutang = pd.DataFrame([{
                 "Pelanggan": pelanggan,
-                "Jumlah Hutang": jumlah_hutang
+                "Jumlah tagihan": jumlah_tagihan
             }])
 
             st.session_state.hutang = pd.concat(
-                [st.session_state.hutang, data_hutang],
+                [st.session_state.hutang, data_tagihan],
                 ignore_index=True
             )
 
-            st.success("Data hutang berhasil ditambahkan!")
+            st.success("Data tagihan berhasil ditambahkan!")
 
     st.dataframe(st.session_state.hutang, use_container_width=True)
 
