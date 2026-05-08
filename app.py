@@ -9,6 +9,82 @@ st.set_page_config(
 )
 
 # =========================
+# CUSTOM CSS
+# =========================
+st.markdown("""
+<style>
+
+/* Background utama */
+.stApp {
+    background: linear-gradient(to bottom right, #caf0f8, #90e0ef);
+}
+
+/* Sidebar */
+section[data-testid="stSidebar"] {
+    background: linear-gradient(180deg, #0077b6, #023e8a);
+}
+
+/* Tulisan sidebar */
+section[data-testid="stSidebar"] * {
+    color: white;
+}
+
+/* Judul */
+h1, h2, h3 {
+    color: #023e8a;
+}
+
+/* Card metric */
+div[data-testid="metric-container"] {
+    background-color: white;
+    border: 2px solid #00b4d8;
+    padding: 15px;
+    border-radius: 15px;
+    box-shadow: 0px 4px 10px rgba(0,0,0,0.1);
+}
+
+/* Form input */
+div[data-testid="stForm"] {
+    background-color: white;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0px 4px 10px rgba(0,0,0,0.1);
+}
+
+/* Tombol */
+.stButton > button {
+    background: linear-gradient(90deg, #0096c7, #00b4d8);
+    color: white;
+    border-radius: 10px;
+    border: none;
+    font-weight: bold;
+}
+
+.stButton > button:hover {
+    background: linear-gradient(90deg, #023e8a, #0077b6);
+    color: white;
+}
+
+/* Dataframe */
+[data-testid="stDataFrame"] {
+    background-color: white;
+    border-radius: 10px;
+    padding: 10px;
+}
+
+/* Info Box */
+.info-box {
+    background-color: white;
+    padding: 20px;
+    border-radius: 15px;
+    border-left: 8px solid #0077b6;
+    box-shadow: 0px 2px 8px rgba(0,0,0,0.1);
+}
+
+</style>
+""", unsafe_allow_html=True)
+
+# =========================
 # SIDEBAR
 # =========================
 st.sidebar.title("💧 Ranto Mudo Water")
@@ -60,16 +136,6 @@ if "stok_kosong" not in st.session_state:
 if menu == "Dashboard":
 
     st.title("💧 Dashboard💧")
-
-    st.markdown("""
-    <div style='background-color:#0077b6;
-    padding:15px;
-    border-radius:15px'>
-    <h1 style='color:white;text-align:center;'>
-    💧 Dashboard 💧
-    </h1>
-    </div>
-    """, unsafe_allow_html=True)
     
     st.markdown("""
     <div class="info-box">
@@ -277,7 +343,7 @@ elif menu == "Pengantaran":
 # =========================
 elif menu == "Tagihan":
 
-    st.title("📒 Tagihan 💸")
+    st.title("📝 Tagihan 💸")
 
     pelanggan_list = (
         st.session_state.pelanggan["Nama"].tolist()
@@ -292,8 +358,8 @@ elif menu == "Tagihan":
             pelanggan_list
         )
 
-        jumlah_hutang = st.number_input(
-            "Jumlah Hutang",
+        jumlah_tagihan = st.number_input(
+            "Jumlah Tagihan",
             min_value=0,
             step=1000
         )
