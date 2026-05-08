@@ -20,7 +20,7 @@ menu = st.sidebar.radio(
         "Stok Galon",
         "Penjualan",
         "Pengantaran",
-        "Pembayaran",
+        "Tagihan",
         "Laporan"
     ]
 )
@@ -265,7 +265,7 @@ elif menu == "Pengantaran":
     st.dataframe(st.session_state.pengantaran, use_container_width=True)
 
 # =========================
-# Tagihan
+# TAGIHAN
 # =========================
 elif menu == "Tagihan":
 
