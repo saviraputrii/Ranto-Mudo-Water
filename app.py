@@ -16,12 +16,12 @@ st.markdown("""
 
 /* Background utama */
 .stApp {
-    background: linear-gradient(to bottom right, #FFFDD0, #F5F5DC);
+    background: linear-gradient(to bottom right, #F5F5DC, #6c757d);
 }
 
 /* Sidebar */
 section[data-testid="stSidebar"] {
-    background: linear-gradient(180deg, #d9d9d9, #c0c0c0);
+    background: linear-gradient(180deg, #00b4d8, #0077b6);
 }
 
 /* Tulisan sidebar */
@@ -31,7 +31,7 @@ section[data-testid="stSidebar"] * {
 
 /* Judul */
 h1, h2, h3 {
-    color: #023e8a;
+    color: #343a40;
 }
 
 /* Card metric */
