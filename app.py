@@ -62,6 +62,15 @@ if menu == "Dashboard":
     st.title("💧 Dashboard💧")
 
     st.markdown("""
+    <div style='background-color:#0077b6;
+    padding:15px;
+    border-radius:15px'>
+    <h1 style='color:white;text-align:center;'>
+    💧 Dashboard 💧
+    </h1>
+    </div>
+    """, unsafe_allow_html=True)
+
     <div class="info-box">
     <h3>📌 Informasi Usaha</h3>
     <p>
@@ -86,8 +95,6 @@ if menu == "Dashboard":
     col4.metric("Total Penjualan", f"Rp {total_penjualan:,}")
 
     st.divider()
-
-    st.subheader("📌 Informasi")
 
     if st.session_state.stok_isi < 10:
         st.warning("⚠️ Stok galon isi hampir habis!")
@@ -277,7 +284,7 @@ elif menu == "Tagihan":
         else []
     )
 
-    with st.form("form_hutang"):
+    with st.form("form_tagihan"):
 
         pelanggan = st.selectbox(
             "Pelanggan",
@@ -290,9 +297,9 @@ elif menu == "Tagihan":
             step=1000
         )
 
-        submit_hutang = st.form_submit_button("Tambah Tagihan")
+        submit_tagihan = st.form_submit_button("Tambah Tagihan")
 
-        if submit_hutang:
+        if submit_tagihan:
 
             data_hutang = pd.DataFrame([{
                 "Pelanggan": pelanggan,
