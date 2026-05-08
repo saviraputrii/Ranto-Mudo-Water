@@ -3,15 +3,15 @@ import pandas as pd
 from datetime import datetime
 
 st.set_page_config(
-    page_title="AquaFlow - Aplikasi Galon Isi Ulang",
-    page_icon="💧",
+    page_title="Ranto Mudo Water - Aplikasi Galon Isi Ulang",
+    page_icon="💧💧",
     layout="wide"
 )
 
 # =========================
 # SIDEBAR
 # =========================
-st.sidebar.title("💧 AquaFlow")
+st.sidebar.title("💧 Ranto Mudo Water")
 menu = st.sidebar.radio(
     "Menu",
     [
@@ -20,7 +20,7 @@ menu = st.sidebar.radio(
         "Stok Galon",
         "Penjualan",
         "Pengantaran",
-        "Hutang Piutang",
+        "Pembayaran",
         "Laporan"
     ]
 )
@@ -59,7 +59,20 @@ if "stok_kosong" not in st.session_state:
 # =========================
 if menu == "Dashboard":
 
-    st.title("💧 Dashboard AquaFlow")
+    st.title("💧 Dashboard💧")
+
+    st.markdown("""
+    <div class="info-box">
+    <h3>📌 Informasi Usaha</h3>
+    <p>
+    Selamat datang di aplikasi manajemen usaha galon isi ulang.
+    Aplikasi ini membantu pencatatan pelanggan, stok galon,
+    transaksi penjualan, pengantaran, serta laporan usaha.
+    </p>
+    </div>
+    """, unsafe_allow_html=True)
+
+    st.write("")
 
     col1, col2, col3, col4 = st.columns(4)
 
@@ -252,11 +265,11 @@ elif menu == "Pengantaran":
     st.dataframe(st.session_state.pengantaran, use_container_width=True)
 
 # =========================
-# HUTANG PIUTANG
+# PEMBAYARAN
 # =========================
-elif menu == "Hutang Piutang":
+elif menu == "PEMBAYARAN":
 
-    st.title("📒 Hutang Piutang")
+    st.title("💰 Pembayaran 💸 ")
 
     pelanggan_list = (
         st.session_state.pelanggan["Nama"].tolist()
