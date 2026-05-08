@@ -70,7 +70,8 @@ if menu == "Dashboard":
     </h1>
     </div>
     """, unsafe_allow_html=True)
-
+    
+    st.markdown("""
     <div class="info-box">
     <h3>📌 Informasi Usaha</h3>
     <p>
