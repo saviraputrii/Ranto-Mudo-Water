@@ -165,71 +165,79 @@ elif menu == "Stok Galon":
 # =========================
 # PENDAPATAN HARIAN
 # =========================
-st.subheader("📅 Pendapatan Harian")
+elif menu == "Pendapatan Harian":
 
-if not st.session_state.penjualan.empty:
+    st.title("📅 Pendapatan Harian")
 
-    df_penjualan = st.session_state.penjualan.copy()
+    if not st.session_state.penjualan.empty:
 
-    # Ubah kolom tanggal ke datetime
-    df_penjualan["Tanggal"] = pd.to_datetime(df_penjualan["Tanggal"])
+        df_penjualan = st.session_state.penjualan.copy()
 
-    # Format tanggal harian
-    df_penjualan["Hari"] = df_penjualan["Tanggal"].dt.strftime("%d-%m-%Y")
+        # Ubah tanggal
+        df_penjualan["Tanggal"] = pd.to_datetime(
+            df_penjualan["Tanggal"]
+        )
 
-    # Total pendapatan harian
-    pendapatan_harian = df_penjualan.groupby("Hari")["Total"].sum().reset_index()
+        # Format harian
+        df_penjualan["Hari"] = df_penjualan["Tanggal"].dt.strftime("%d-%m-%Y")
 
-    st.dataframe(
-        pendapatan_harian,
-        use_container_width=True
-    )
+        # Group pendapatan
+        pendapatan_harian = (
+            df_penjualan.groupby("Hari")["Total"]
+            .sum()
+            .reset_index()
+        )
 
-    st.bar_chart(
-        pendapatan_harian.set_index("Hari")
-    )
+        st.dataframe(
+            pendapatan_harian,
+            use_container_width=True
+        )
 
-else:
-    st.info("Belum ada data penjualan.")
+        st.bar_chart(
+            pendapatan_harian.set_index("Hari")
+        )
 
-st.divider()
-
+    else:
+        st.info("Belum ada data penjualan.")
+        
 # =========================
-# PENDAPATAN BULANAN
+# PENDAPATAN HARIAN
 # =========================
-st.subheader("📆 Pendapatan Bulanan")
+elif menu == "Pendapatan Harian":
 
-if not st.session_state.penjualan.empty:
+    st.title("📅 Pendapatan Harian")
 
-    # Format bulan
-    df_penjualan["Bulan"] = df_penjualan["Tanggal"].dt.strftime("%B %Y")
+    if not st.session_state.penjualan.empty:
 
-    # Total pendapatan bulanan
-    pendapatan_bulanan = df_penjualan.groupby("Bulan")["Total"].sum().reset_index()
+        df_penjualan = st.session_state.penjualan.copy()
 
-    st.dataframe(
-        pendapatan_bulanan,
-        use_container_width=True
-    )
+        # Ubah tanggal
+        df_penjualan["Tanggal"] = pd.to_datetime(
+            df_penjualan["Tanggal"]
+        )
 
-    st.bar_chart(
-        pendapatan_bulanan.set_index("Bulan")
-    )
+        # Format harian
+        df_penjualan["Hari"] = df_penjualan["Tanggal"].dt.strftime("%d-%m-%Y")
 
-else:
-    st.info("Belum ada data penjualan.")
+        # Group pendapatan
+        pendapatan_harian = (
+            df_penjualan.groupby("Hari")["Total"]
+            .sum()
+            .reset_index()
+        )
 
-st.divider()
+        st.dataframe(
+            pendapatan_harian,
+            use_container_width=True
+        )
 
-# =========================
-# DATA PENJUALAN
-# =========================
-st.subheader("📋 Data Penjualan")
+        st.bar_chart(
+            pendapatan_harian.set_index("Hari")
+        )
 
-st.dataframe(
-    st.session_state.penjualan,
-    use_container_width=True
-)
+    else:
+        st.info("Belum ada data penjualan.")
+
 
 # =========================
 # PENGANTARAN
