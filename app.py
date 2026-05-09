@@ -249,65 +249,38 @@ elif menu == "Penjualan":
 
             st.success("Penjualan berhasil disimpan!")
 
-    st.dataframe(st.session_state.penjualan, use_container_width=True)
-    elif menu == "Penjualan":
-
-    st.title("💰 Penjualan")
-
-    pelanggan_list = (
-        st.session_state.pelanggan["Nama"].tolist()
-        if not st.session_state.pelanggan.empty
-        else []
-    )
-
-    with st.form("form_penjualan"):
-
-        pelanggan = st.selectbox(
-            "Pilih Pelanggan",
-            pelanggan_list
-        )
-
-        jumlah = st.number_input(
-            "Jumlah Galon",
-            min_value=1,
-            step=1
-        )
-
-        harga = st.number_input(
-            "Harga per Galon",
-            min_value=0,
-            step=1000
-        )
-
-        submit_jual = st.form_submit_button("Simpan Penjualan")
-
-        if submit_jual:
-
-            total = jumlah * harga
-
-            data_jual = pd.DataFrame([{
-                "Tanggal": datetime.now().strftime("%Y-%m-%d"),
-                "Pelanggan": pelanggan,
-                "Jumlah": jumlah,
-                "Total": total
-            }])
-
-            st.session_state.penjualan = pd.concat(
-                [st.session_state.penjualan, data_jual],
-                ignore_index=True
-            )
-
-            st.session_state.stok_isi -= jumlah
-            st.session_state.stok_kosong += jumlah
-
-            st.success("Penjualan berhasil disimpan!")
-
     # TABEL PENJUALAN
     st.dataframe(
         st.session_state.penjualan,
         use_container_width=True
     )
 
+    st.divider()
+
+    # HAPUS DATA PENJUALAN
+    st.subheader("🗑️ Hapus Data Penjualan")
+
+    if not st.session_state.penjualan.empty:
+
+        hapus_penjualan = st.selectbox(
+            "Pilih data penjualan",
+            st.session_state.penjualan.index
+        )
+
+        if st.button("Hapus Penjualan"):
+
+            st.session_state.penjualan = (
+                st.session_state.penjualan.drop(hapus_penjualan)
+            )
+
+            st.session_state.penjualan = (
+                st.session_state.penjualan.reset_index(drop=True)
+            )
+
+            st.success("Data penjualan berhasil dihapus!")
+
+    else:
+        st.info("Belum ada data penjualan.")
     st.divider()
 
     # =========================
