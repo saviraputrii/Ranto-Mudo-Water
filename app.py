@@ -19,7 +19,6 @@ menu = st.sidebar.radio(
         "Data Pelanggan",
         "Stok Galon",
         "Penjualan",
-        "Pengantaran",
         "Tagihan",
         "Laporan",
         "Pendapatan Bulanan",
@@ -251,13 +250,9 @@ elif menu == "Penjualan":
             st.success("Penjualan berhasil disimpan!")
 
     st.dataframe(st.session_state.penjualan, use_container_width=True)
+    elif menu == "Penjualan":
 
-# =========================
-# PENGANTARAN
-# =========================
-elif menu == "Pengantaran":
-
-    st.title("🚚 Riwayat Pengantaran")
+    st.title("💰 Penjualan")
 
     pelanggan_list = (
         st.session_state.pelanggan["Nama"].tolist()
@@ -265,36 +260,83 @@ elif menu == "Pengantaran":
         else []
     )
 
-    with st.form("form_pengantaran"):
+    with st.form("form_penjualan"):
 
         pelanggan = st.selectbox(
-            "Pelanggan",
+            "Pilih Pelanggan",
             pelanggan_list
         )
 
-        status = st.selectbox(
-            "Status",
-            ["Diproses", "Dikirim", "Selesai"]
+        jumlah = st.number_input(
+            "Jumlah Galon",
+            min_value=1,
+            step=1
         )
 
-        submit_antar = st.form_submit_button("Tambah Pengantaran")
+        harga = st.number_input(
+            "Harga per Galon",
+            min_value=0,
+            step=1000
+        )
 
-        if submit_antar:
+        submit_jual = st.form_submit_button("Simpan Penjualan")
 
-            data_antar = pd.DataFrame([{
+        if submit_jual:
+
+            total = jumlah * harga
+
+            data_jual = pd.DataFrame([{
                 "Tanggal": datetime.now().strftime("%Y-%m-%d"),
                 "Pelanggan": pelanggan,
-                "Status": status
+                "Jumlah": jumlah,
+                "Total": total
             }])
 
-            st.session_state.pengantaran = pd.concat(
-                [st.session_state.pengantaran, data_antar],
+            st.session_state.penjualan = pd.concat(
+                [st.session_state.penjualan, data_jual],
                 ignore_index=True
             )
 
-            st.success("Data pengantaran berhasil ditambahkan!")
+            st.session_state.stok_isi -= jumlah
+            st.session_state.stok_kosong += jumlah
 
-    st.dataframe(st.session_state.pengantaran, use_container_width=True)
+            st.success("Penjualan berhasil disimpan!")
+
+    # TABEL PENJUALAN
+    st.dataframe(
+        st.session_state.penjualan,
+        use_container_width=True
+    )
+
+    st.divider()
+
+    # =========================
+    # HAPUS DATA PENJUALAN
+    # =========================
+    st.subheader("🗑️ Hapus Data Penjualan")
+
+    if not st.session_state.penjualan.empty:
+
+        hapus_penjualan = st.selectbox(
+            "Pilih data penjualan",
+            st.session_state.penjualan.index
+        )
+
+        if st.button("Hapus Penjualan"):
+
+            st.session_state.penjualan = (
+                st.session_state.penjualan.drop(hapus_penjualan)
+            )
+
+            # Reset index
+            st.session_state.penjualan = (
+                st.session_state.penjualan.reset_index(drop=True)
+            )
+
+            st.success("Data penjualan berhasil dihapus!")
+
+    else:
+        st.info("Belum ada data penjualan.")
 
 # =========================
 # TAGIHAN
