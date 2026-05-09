@@ -132,31 +132,6 @@ st.dataframe(
         use_container_width=True
     )
 
-    st.divider()
-
-    st.subheader("🗑️ Hapus Data Pelanggan")
-
-    if not st.session_state.pelanggan.empty:
-
-        pelanggan_hapus = st.selectbox(
-            "Pilih pelanggan yang akan dihapus",
-            st.session_state.pelanggan["Nama"]
-        )
-
-        if st.button("Hapus Pelanggan"):
-
-            st.session_state.pelanggan = (
-                st.session_state.pelanggan[
-                    st.session_state.pelanggan["Nama"] != pelanggan_hapus
-                ]
-            )
-
-            st.success(
-                f"Data pelanggan '{pelanggan_hapus}' berhasil dihapus!"
-            )
-
-    else:
-        st.info("Belum ada data pelanggan.")
 
 # =========================
 # STOK GALON
