@@ -7,87 +7,26 @@ st.set_page_config(
     page_icon="💧💧",
     layout="wide"
 )
-# =========================
-# CUSTOM CSS
-# =========================
-st.markdown("""
-<style>
+st.markdown(
+    """
+    <style>
+    .stApp {
+        background:
+        linear-gradient(
+            rgba(255,255,255,0.75),
+            rgba(255,255,255,0.75)
+        ),
+        url("https://images.unsplash.com/photo-1506744038136-46273834b3fb");
 
-/* Background gradasi */
-.stApp {
-    background: linear-gradient(
-        135deg,
-        #000000 0%,
-        #111111 40%,
-        #1a1a2e 70%,
-        #16213e 100%
-    );
-    
-    color: white;
-    background-attachment: fixed;
-}
-
-/* Sidebar */
-section[data-testid="stSidebar"] {
-    background: linear-gradient(
-        180deg,
-        #000000 0%,
-        #111111 100%
-    );
-}
-
-/* Semua tulisan */
-h1, h2, h3, h4, h5, h6,
-p, label, div, span {
-    color: white !important;
-}
-
-/* Input box */
-.stTextInput input,
-.stNumberInput input,
-.stSelectbox div,
-.stTextArea textarea {
-    background-color: rgba(255,255,255,0.08) !important;
-    color: white !important;
-    border-radius: 12px;
-    border: 1px solid #444;
-}
-
-/* Tombol */
-.stButton button {
-    background: linear-gradient(
-        90deg,
-        #00b4db,
-        #0083b0
-    );
-    
-    color: white;
-    border-radius: 12px;
-    border: none;
-    font-weight: bold;
-}
-
-/* Metric card */
-[data-testid="metric-container"] {
-    background: rgba(255,255,255,0.06);
-    border-radius: 15px;
-    padding: 15px;
-    border: 1px solid rgba(255,255,255,0.1);
-}
-
-/* Dataframe */
-[data-testid="stDataFrame"] {
-    background-color: rgba(255,255,255,0.05);
-    border-radius: 12px;
-}
-
-/* Divider */
-hr {
-    border-color: rgba(255,255,255,0.2);
-}
-
-</style>
-""", unsafe_allow_html=True)
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+    }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
 
 # =========================
 # SIDEBAR
