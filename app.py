@@ -294,11 +294,11 @@ elif menu == "Tagihan":
 
             data_hutang = pd.DataFrame([{
                 "Pelanggan": pelanggan,
-                "Jumlah tagihan": jumlah_tagihan
+                "Jumlah Hutang": jumlah_tagihan
             }])
 
             st.session_state.hutang = pd.concat(
-                [st.session_state.hutang, data_tagihan],
+                [st.session_state.hutang, data_hutang],
                 ignore_index=True
             )
 
@@ -328,6 +328,56 @@ elif menu == "Laporan":
     col3.metric("Total Tagihan", f"Rp {total_hutang:,}")
 
     st.divider()
+
+    # =========================
+# PENDAPATAN BULANAN
+# =========================
+st.subheader("📆 Pendapatan Bulanan Keseluruhan")
+
+if not st.session_state.penjualan.empty:
+
+    # Copy data penjualan
+    df_penjualan = st.session_state.penjualan.copy()
+
+    # Ubah kolom tanggal menjadi datetime
+    df_penjualan["Tanggal"] = pd.to_datetime(
+        df_penjualan["Tanggal"]
+    )
+
+    # Ambil format bulan dan tahun
+    df_penjualan["Bulan"] = df_penjualan["Tanggal"].dt.strftime("%B %Y")
+
+    # Hitung total pendapatan per bulan
+    pendapatan_bulanan = (
+        df_penjualan.groupby("Bulan")["Total"]
+        .sum()
+        .reset_index()
+    )
+
+    # Total seluruh pendapatan bulanan
+    total_bulanan = pendapatan_bulanan["Total"].sum()
+
+    # Tampilkan total keseluruhan
+    st.metric(
+        "Total Pendapatan Keseluruhan",
+        f"Rp {total_bulanan:,}"
+    )
+
+    st.divider()
+
+    # Tampilkan tabel
+    st.dataframe(
+        pendapatan_bulanan,
+        use_container_width=True
+    )
+
+    # Grafik pendapatan bulanan
+    st.bar_chart(
+        pendapatan_bulanan.set_index("Bulan")
+    )
+
+else:
+    st.info("Belum ada data penjualan.")
 
     st.subheader("Data Penjualan")
     st.dataframe(st.session_state.penjualan, use_container_width=True)
