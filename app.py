@@ -6,35 +6,7 @@ st.set_page_config(
     page_title="Ranto Mudo Water - Aplikasi Galon Isi Ulang",
     page_icon="💧💧",
     layout="wide"
-st.markdown(
-    """
-    <style>
-    .stApp {
-        background:
-        linear-gradient(
-            rgba(0,0,0,0.55),
-            rgba(0,0,0,0.55)
-        ),
-        url("https://images.unsplash.com/photo-1502741338009-cac2772e18bc");
 
-        background-size: cover;
-        background-position: center;
-        background-repeat: no-repeat;
-        background-attachment: fixed;
-    }
-
-    h1, h2, h3, h4, h5, h6, p, label, div {
-        color: white !important;
-    }
-
-    .stDataFrame {
-        background-color: rgba(255,255,255,0.9);
-        border-radius: 10px;
-    }
-    </style>
-    """,
-    unsafe_allow_html=True
-)
 # =========================
 # DATABASE SEMENTARA
 # =========================
