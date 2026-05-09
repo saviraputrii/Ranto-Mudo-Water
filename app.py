@@ -18,7 +18,8 @@ menu = st.sidebar.radio(
         "Dashboard",
         "Data Pelanggan",
         "Stok Galon",
-        "Penjualan",
+        "Pendapatan Harian",
+        "Pendapatan Bulanan",
         "Pengantaran",
         "Tagihan",
         "Laporan"
@@ -162,61 +163,73 @@ elif menu == "Stok Galon":
     st.metric("Total Stok Kosong", st.session_state.stok_kosong)
 
 # =========================
-# PENJUALAN
+# PENDAPATAN HARIAN
 # =========================
-elif menu == "Penjualan":
+st.subheader("📅 Pendapatan Harian")
 
-    st.title("💰 Penjualan")
+if not st.session_state.penjualan.empty:
 
-    pelanggan_list = (
-        st.session_state.pelanggan["Nama"].tolist()
-        if not st.session_state.pelanggan.empty
-        else []
+    df_penjualan = st.session_state.penjualan.copy()
+
+    # Ubah kolom tanggal ke datetime
+    df_penjualan["Tanggal"] = pd.to_datetime(df_penjualan["Tanggal"])
+
+    # Format tanggal harian
+    df_penjualan["Hari"] = df_penjualan["Tanggal"].dt.strftime("%d-%m-%Y")
+
+    # Total pendapatan harian
+    pendapatan_harian = df_penjualan.groupby("Hari")["Total"].sum().reset_index()
+
+    st.dataframe(
+        pendapatan_harian,
+        use_container_width=True
     )
 
-    with st.form("form_penjualan"):
+    st.bar_chart(
+        pendapatan_harian.set_index("Hari")
+    )
 
-        pelanggan = st.selectbox(
-            "Pilih Pelanggan",
-            pelanggan_list
-        )
+else:
+    st.info("Belum ada data penjualan.")
 
-        jumlah = st.number_input(
-            "Jumlah Galon",
-            min_value=1,
-            step=1
-        )
+st.divider()
 
-        harga = st.number_input(
-            "Harga per Galon",
-            min_value=0,
-            step=1000
-        )
+# =========================
+# PENDAPATAN BULANAN
+# =========================
+st.subheader("📆 Pendapatan Bulanan")
 
-        submit_jual = st.form_submit_button("Simpan Penjualan")
+if not st.session_state.penjualan.empty:
 
-        if submit_jual:
+    # Format bulan
+    df_penjualan["Bulan"] = df_penjualan["Tanggal"].dt.strftime("%B %Y")
 
-            total = jumlah * harga
+    # Total pendapatan bulanan
+    pendapatan_bulanan = df_penjualan.groupby("Bulan")["Total"].sum().reset_index()
 
-            data_jual = pd.DataFrame([{
-                "Tanggal": datetime.now().strftime("%Y-%m-%d"),
-                "Pelanggan": pelanggan,
-                "Jumlah": jumlah,
-                "Total": total
-            }])
+    st.dataframe(
+        pendapatan_bulanan,
+        use_container_width=True
+    )
 
-            st.session_state.penjualan = pd.concat(
-                [st.session_state.penjualan, data_jual],
-                ignore_index=True
-            )
+    st.bar_chart(
+        pendapatan_bulanan.set_index("Bulan")
+    )
 
-            st.session_state.stok_isi -= jumlah
-            st.session_state.stok_kosong += jumlah
+else:
+    st.info("Belum ada data penjualan.")
 
-            st.success("Penjualan berhasil disimpan!")
+st.divider()
 
-    st.dataframe(st.session_state.penjualan, use_container_width=True)
+# =========================
+# DATA PENJUALAN
+# =========================
+st.subheader("📋 Data Penjualan")
+
+st.dataframe(
+    st.session_state.penjualan,
+    use_container_width=True
+)
 
 # =========================
 # PENGANTARAN
