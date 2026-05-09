@@ -333,7 +333,8 @@ elif menu == "Laporan":
 # =========================
 # PENDAPATAN BULANAN
 # =========================
-st.subheader("📆 Pendapatan Bulanan")
+elif menu == "Pendapatan Bulanan":
+    st.title ("📆Pendapatan Bulanan")
 
 if not st.session_state.penjualan.empty:
 
