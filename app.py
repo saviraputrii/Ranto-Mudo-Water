@@ -100,11 +100,6 @@ if menu == "Dashboard":
 elif menu == "Data Pelanggan":
 
     st.title("👥 Data Pelanggan")
-    st.markdown("""
-    ### Manajemen Data Pelanggan 
-
-    Menu ini digunakan untuk menyimpan dan mengelola informasi pelanggan air galon isi ulang untuk mempermudah pelayanan, riwayat transaksi, dan pengantaran secara terstruktur.
-    """)
 
     with st.form("form_pelanggan"):
         nama = st.text_input("Nama")
@@ -127,11 +122,7 @@ elif menu == "Data Pelanggan":
 
             st.success("Pelanggan berhasil ditambahkan!")
 
-st.dataframe(
-        st.session_state.pelanggan,
-        use_container_width=True
-    )
-
+    st.dataframe(st.session_state.pelanggan, use_container_width=True)
 
 # =========================
 # STOK GALON
@@ -356,20 +347,20 @@ elif menu == "Pendapatan Bulanan":
             df_penjualan["Tanggal"]
         )
 
-        # Format bulan dan tahun
+        # Ambil format bulan dan tahun
         df_penjualan["Bulan"] = (
             df_penjualan["Tanggal"]
             .dt.strftime("%B %Y")
         )
 
-        # Hitung total pendapatan bulanan
+        # Hitung total pendapatan per bulan
         pendapatan_bulanan = (
             df_penjualan.groupby("Bulan")["Total"]
             .sum()
             .reset_index()
         )
 
-        # Total keseluruhan
+        # Total seluruh pendapatan
         total_bulanan = pendapatan_bulanan["Total"].sum()
 
         # Tampilkan total
@@ -380,7 +371,7 @@ elif menu == "Pendapatan Bulanan":
 
         st.divider()
 
-        # Tampilkan tabel
+        # Tabel pendapatan bulanan
         st.dataframe(
             pendapatan_bulanan,
             use_container_width=True
@@ -390,4 +381,7 @@ elif menu == "Pendapatan Bulanan":
         st.info("Belum ada data penjualan.")
 
     st.subheader("Data Penjualan")
-    st.dataframe(st.session_state.penjualan, use_container_width=True)
+    st.dataframe(
+        st.session_state.penjualan,
+        use_container_width=True
+    )
