@@ -100,13 +100,9 @@ if menu == "Dashboard":
 elif menu == "Data Pelanggan":
 
     st.title("👥 Data Pelanggan")
-    st.markdown("""
-    ### Manajemen Data Pelanggan 
-
-    Menu ini digunakan untuk menyimpan dan mengelola informasi pelanggan air galon isi ulang untuk mempermudah pelayanan, riwayat transaksi, dan pengantaran secara terstruktur.
-    """)
 
     with st.form("form_pelanggan"):
+
         nama = st.text_input("Nama")
         alamat = st.text_input("Alamat")
         hp = st.text_input("No HP")
@@ -114,6 +110,7 @@ elif menu == "Data Pelanggan":
         submit = st.form_submit_button("Tambah Pelanggan")
 
         if submit:
+
             data_baru = pd.DataFrame([{
                 "Nama": nama,
                 "Alamat": alamat,
@@ -127,35 +124,38 @@ elif menu == "Data Pelanggan":
 
             st.success("Pelanggan berhasil ditambahkan!")
 
-    st.dataframe(st.session_state.pelanggan, use_container_width=True)
+    # TABEL DATA
     st.dataframe(
-    st.session_state.pelanggan,
-    use_container_width=True
-)
-
-st.divider()
-
-st.subheader("🗑️ Hapus Data Pelanggan")
-
-if not st.session_state.pelanggan.empty:
-
-    pelanggan_hapus = st.selectbox(
-        "Pilih pelanggan yang akan dihapus",
-        st.session_state.pelanggan["Nama"]
+        st.session_state.pelanggan,
+        use_container_width=True
     )
 
-    if st.button("Hapus Pelanggan"):
+    st.divider()
 
-        st.session_state.pelanggan = (
-            st.session_state.pelanggan[
-                st.session_state.pelanggan["Nama"] != pelanggan_hapus
-            ]
+    # HAPUS DATA
+    st.subheader("🗑️ Hapus Data Pelanggan")
+
+    if not st.session_state.pelanggan.empty:
+
+        pelanggan_hapus = st.selectbox(
+            "Pilih pelanggan yang akan dihapus",
+            st.session_state.pelanggan["Nama"]
         )
 
-        st.success(f"Data pelanggan '{pelanggan_hapus}' berhasil dihapus!")
+        if st.button("Hapus Pelanggan"):
 
-else:
-    st.info("Belum ada data pelanggan.")
+            st.session_state.pelanggan = (
+                st.session_state.pelanggan[
+                    st.session_state.pelanggan["Nama"] != pelanggan_hapus
+                ]
+            )
+
+            st.success(
+                f"Data pelanggan '{pelanggan_hapus}' berhasil dihapus!"
+            )
+
+    else:
+        st.info("Belum ada data pelanggan.")
 
 # =========================
 # STOK GALON
