@@ -7,19 +7,7 @@ st.set_page_config(
     page_icon="💧💧",
     layout="wide"
 )
-st.markdown(
-    """
-    <style>
-    .stApp {
-        background-image: url("https://share.google/tSuDPcD3ewsPLYcTU");
-        background-size: cover;
-        background-position: center;
-        background-attachment: fixed;
-    }
-    </style>
-    """,
-    unsafe_allow_html=True
-)
+
 # =========================
 # SIDEBAR
 # =========================
