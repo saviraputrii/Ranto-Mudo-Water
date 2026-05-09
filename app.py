@@ -7,26 +7,7 @@ st.set_page_config(
     page_icon="💧💧",
     layout="wide"
 )
-st.markdown(
-    """
-    <style>
-    .stApp {
-        background:
-        linear-gradient(
-            rgba(255,255,255,0.75),
-            rgba(255,255,255,0.75)
-        ),
-        url("https://pin.it/5NctvB0U8");
 
-        background-size: cover;
-        background-position: center;
-        background-repeat: no-repeat;
-        background-attachment: fixed;
-    }
-    </style>
-    """,
-    unsafe_allow_html=True
-)
 # =========================
 # SIDEBAR
 # =========================
