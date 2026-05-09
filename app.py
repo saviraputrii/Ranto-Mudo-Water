@@ -26,7 +26,7 @@ section[data-testid="stSidebar"] {
 
 /* Tulisan sidebar */
 section[data-testid="stSidebar"] * {
-    color: white;
+    color: black;
 }
 
 /* Judul */
@@ -45,7 +45,7 @@ div[data-testid="metric-container"] {
 
 /* Form input */
 div[data-testid="stForm"] {
-    background-color: white;
+    background-color: black;
     padding: 20px;
     border-radius: 15px;
     box-shadow: 0px 4px 10px rgba(0,0,0,0.1);
