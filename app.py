@@ -127,35 +127,36 @@ elif menu == "Data Pelanggan":
 
             st.success("Pelanggan berhasil ditambahkan!")
 
-    st.dataframe(st.session_state.pelanggan, use_container_width=True)
-    st.dataframe(
-    st.session_state.pelanggan,
-    use_container_width=True
-)
-
-st.divider()
-
-st.subheader("🗑️ Hapus Data Pelanggan")
-
-if not st.session_state.pelanggan.empty:
-
-    pelanggan_hapus = st.selectbox(
-        "Pilih pelanggan yang akan dihapus",
-        st.session_state.pelanggan["Nama"]
+st.dataframe(
+        st.session_state.pelanggan,
+        use_container_width=True
     )
 
-    if st.button("Hapus Pelanggan"):
+    st.divider()
 
-        st.session_state.pelanggan = (
-            st.session_state.pelanggan[
-                st.session_state.pelanggan["Nama"] != pelanggan_hapus
-            ]
+    st.subheader("🗑️ Hapus Data Pelanggan")
+
+    if not st.session_state.pelanggan.empty:
+
+        pelanggan_hapus = st.selectbox(
+            "Pilih pelanggan yang akan dihapus",
+            st.session_state.pelanggan["Nama"]
         )
 
-        st.success(f"Data pelanggan '{pelanggan_hapus}' berhasil dihapus!")
+        if st.button("Hapus Pelanggan"):
 
-else:
-    st.info("Belum ada data pelanggan.")
+            st.session_state.pelanggan = (
+                st.session_state.pelanggan[
+                    st.session_state.pelanggan["Nama"] != pelanggan_hapus
+                ]
+            )
+
+            st.success(
+                f"Data pelanggan '{pelanggan_hapus}' berhasil dihapus!"
+            )
+
+    else:
+        st.info("Belum ada data pelanggan.")
 
 # =========================
 # STOK GALON
