@@ -16,27 +16,7 @@ st.markdown(
             rgba(255,255,255,0.75),
             rgba(255,255,255,0.75)
         ),
-        url("https://images.unsplash.com/photo-1500530855697-b586d89ba3ee");
-
-        background-size: cover;
-        background-position: center;
-        background-repeat: no-repeat;
-        background-attachment: fixed;
-    }
-    </style>
-    """,
-    unsafe_allow_html=True
-)
-st.markdown(
-    """
-    <style>
-    .stApp {
-        background:
-        linear-gradient(
-            rgba(255,255,255,0.75),
-            rgba(255,255,255,0.75)
-        ),
-        url("https://images.unsplash.com/photo-1506744038136-46273834b3fb");
+        url("https://pin.it/5NctvB0U8");
 
         background-size: cover;
         background-position: center;
