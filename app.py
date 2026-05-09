@@ -44,7 +44,7 @@ st.markdown(
 # =========================
 if "pelanggan" not in st.session_state:
     st.session_state.pelanggan = pd.DataFrame(columns=[
-        "Nama", "Alamat", No HP"
+        "Nama", "Alamat", "No HP"
     ])
 
 if "penjualan" not in st.session_state:
