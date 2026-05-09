@@ -372,11 +372,6 @@ if not st.session_state.penjualan.empty:
         use_container_width=True
     )
 
-    # Grafik pendapatan bulanan
-    st.bar_chart(
-        pendapatan_bulanan.set_index("Bulan")
-    )
-
 else:
     st.info("Belum ada data penjualan.")
 
