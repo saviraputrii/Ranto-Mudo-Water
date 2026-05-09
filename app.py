@@ -318,14 +318,14 @@ elif menu == "Laporan":
 
     total_transaksi = len(st.session_state.penjualan)
 
-    total_hutang = st.session_state.hutang["Jumlah Hutang"].sum() \
+    total_hutang = st.session_state.hutang["Jumlah Tagihan"].sum() \
         if not st.session_state.hutang.empty else 0
 
     col1, col2, col3 = st.columns(3)
 
     col1.metric("Total Penjualan", f"Rp {total_penjualan:,}")
     col2.metric("Jumlah Transaksi", total_transaksi)
-    col3.metric("Total Hutang", f"Rp {total_hutang:,}")
+    col3.metric("Total Tagihan", f"Rp {total_tagihan:,}")
 
     st.divider()
 
