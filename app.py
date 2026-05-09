@@ -141,9 +141,9 @@ if menu == "Dashboard":
     <div class="info-box">
     <h3>📌 Informasi Usaha</h3>
     <p>
-    Selamat datang di aplikasi manajemen usaha galon isi ulang.
-    Aplikasi ini untuk pencatatan pelanggan, stok galon,
-    transaksi penjualan, pengantaran,tagihan, serta laporan usaha.
+    Selamat datang di platform manajemen depot air minum isi ulang yang dirancang untuk mendukung operasional bisnis secara modern, terstruktur, dan terpercaya. Aplikasi ini hadir sebagai solusi dalam membantu proses pengelolaan usaha agar menjadi lebih efektif, akurat, dan mudah diakses kapan saja.
+    Melalui sistem yang terintegrasi, seluruh aktivitas operasional mulai dari pengelolaan data pelanggan, monitoring stok galon, pencatatan transaksi penjualan, pengelolaan tagihan pelanggan, hingga penyusunan laporan usaha dapat dilakukan secara otomatis dalam satu aplikasi.
+    Dengan tampilan yang sederhana namun profesional, aplikasi ini membantu pemilik usaha dalam meningkatkan kualitas pelayanan, meminimalkan kesalahan pencatatan, serta mempermudah proses pengambilan keputusan berdasarkan data yang tersusun secara real-time.
     </p>
     </div>
     """, unsafe_allow_html=True)
