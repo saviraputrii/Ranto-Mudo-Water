@@ -16,7 +16,7 @@ st.markdown(
             rgba(255,255,255,0.75),
             rgba(255,255,255,0.75)
         ),
-        url("https://images.unsplash.com/photo-1506744038136-46273834b3fb");
+        url("https://images.unsplash.com/photo-1500530855697-b586d89ba3ee");
 
         background-size: cover;
         background-position: center;
