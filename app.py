@@ -334,47 +334,51 @@ elif menu == "Laporan":
 # PENDAPATAN BULANAN
 # =========================
 elif menu == "Pendapatan Bulanan":
-    st.title ("📆Pendapatan Bulanan")
 
-if not st.session_state.penjualan.empty:
+    st.title("📆 Pendapatan Bulanan")
 
-    # Copy data penjualan
-    df_penjualan = st.session_state.penjualan.copy()
+    if not st.session_state.penjualan.empty:
 
-    # Ubah kolom tanggal menjadi datetime
-    df_penjualan["Tanggal"] = pd.to_datetime(
-        df_penjualan["Tanggal"]
-    )
+        # Copy data penjualan
+        df_penjualan = st.session_state.penjualan.copy()
 
-    # Ambil format bulan dan tahun
-    df_penjualan["Bulan"] = df_penjualan["Tanggal"].dt.strftime("%B %Y")
+        # Ubah kolom tanggal menjadi datetime
+        df_penjualan["Tanggal"] = pd.to_datetime(
+            df_penjualan["Tanggal"]
+        )
 
-    # Hitung total pendapatan per bulan
-    pendapatan_bulanan = (
-        df_penjualan.groupby("Bulan")["Total"]
-        .sum()
-        .reset_index()
-    )
+        # Format bulan dan tahun
+        df_penjualan["Bulan"] = (
+            df_penjualan["Tanggal"]
+            .dt.strftime("%B %Y")
+        )
 
-    # Total seluruh pendapatan bulanan
-    total_bulanan = pendapatan_bulanan["Total"].sum()
+        # Hitung total pendapatan bulanan
+        pendapatan_bulanan = (
+            df_penjualan.groupby("Bulan")["Total"]
+            .sum()
+            .reset_index()
+        )
 
-    # Tampilkan total keseluruhan
-    st.metric(
-        "Total Pendapatan",
-        f"Rp {total_bulanan:,}"
-    )
+        # Total keseluruhan
+        total_bulanan = pendapatan_bulanan["Total"].sum()
 
-    st.divider()
+        # Tampilkan total
+        st.metric(
+            "Total Pendapatan",
+            f"Rp {total_bulanan:,}"
+        )
 
-    # Tampilkan tabel
-    st.dataframe(
-        pendapatan_bulanan,
-        use_container_width=True
-    )
+        st.divider()
 
-else:
-    st.info("Belum ada data penjualan.")
+        # Tampilkan tabel
+        st.dataframe(
+            pendapatan_bulanan,
+            use_container_width=True
+        )
+
+    else:
+        st.info("Belum ada data penjualan.")
 
     st.subheader("Data Penjualan")
     st.dataframe(st.session_state.penjualan, use_container_width=True)
