@@ -21,7 +21,8 @@ menu = st.sidebar.radio(
         "Penjualan",
         "Pengantaran",
         "Tagihan",
-        "Laporan"
+        "Laporan",
+        "Pendapatan Bulanan",
     ]
 )
 
