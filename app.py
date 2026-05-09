@@ -330,10 +330,10 @@ elif menu == "Laporan":
 
     st.divider()
 
-    # =========================
+# =========================
 # PENDAPATAN BULANAN
 # =========================
-st.subheader("📆 Pendapatan Bulanan Keseluruhan")
+st.subheader("📆 Pendapatan Bulanan")
 
 if not st.session_state.penjualan.empty:
 
@@ -360,7 +360,7 @@ if not st.session_state.penjualan.empty:
 
     # Tampilkan total keseluruhan
     st.metric(
-        "Total Pendapatan Keseluruhan",
+        "Total Pendapatan",
         f"Rp {total_bulanan:,}"
     )
 
