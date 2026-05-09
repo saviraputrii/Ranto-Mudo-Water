@@ -7,98 +7,26 @@ st.set_page_config(
     page_icon="💧💧",
     layout="wide"
 )
-# =========================
-# BACKGROUND PINTEREST STYLE
-# =========================
-st.markdown("""
-<style>
+st.markdown(
+    """
+    <style>
+    .stApp {
+        background:
+        linear-gradient(
+            rgba(255,255,255,0.75),
+            rgba(255,255,255,0.75)
+        ),
+        url("https://pin.it/5NctvB0U8");
 
-/* Background utama */
-.stApp {
-    background:
-    linear-gradient(
-        rgba(0,0,0,0.72),
-        rgba(0,0,0,0.72)
-    ),
-    url("https://pin.it/5NctvB0U8");
-
-    background-size: cover;
-    background-position: center;
-    background-attachment: fixed;
-}
-
-/* Semua tulisan */
-html, body, [class*="css"] {
-    color: #ffffff !important;
-}
-
-/* Sidebar */
-section[data-testid="stSidebar"] {
-    background-color: rgba(15,15,15,0.85);
-    backdrop-filter: blur(6px);
-}
-
-/* Tulisan sidebar */
-section[data-testid="stSidebar"] * {
-    color: white !important;
-}
-
-/* Box metric */
-div[data-testid="metric-container"] {
-    background: rgba(255,255,255,0.08);
-    border: 1px solid rgba(255,255,255,0.1);
-    padding: 15px;
-    border-radius: 18px;
-    backdrop-filter: blur(4px);
-}
-
-/* Info box */
-.info-box {
-    background: rgba(0,0,0,0.45);
-    padding: 25px;
-    border-radius: 20px;
-    backdrop-filter: blur(5px);
-}
-
-/* Input */
-input, textarea {
-    background-color: rgba(255,255,255,0.12) !important;
-    color: white !important;
-    border-radius: 10px !important;
-}
-
-/* Selectbox */
-div[data-baseweb="select"] {
-    color: black !important;
-}
-
-/* Dataframe */
-[data-testid="stDataFrame"] {
-    background: rgba(0,0,0,0.35);
-    border-radius: 15px;
-}
-
-/* Tombol */
-.stButton>button {
-    background: linear-gradient(
-        135deg,
-        #4facfe,
-        #00f2fe
-    );
-    color: white;
-    border: none;
-    border-radius: 12px;
-    font-weight: bold;
-}
-
-/* Judul */
-h1, h2, h3 {
-    color: white !important;
-}
-
-</style>
-""", unsafe_allow_html=True)
-
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+    }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
 # =========================
 # SIDEBAR
 # =========================
