@@ -27,25 +27,6 @@ st.markdown(
     """,
     unsafe_allow_html=True
 )
-
-# =========================
-# SIDEBAR
-# =========================
-st.sidebar.title("💧 Ranto Mudo Water")
-menu = st.sidebar.radio(
-    "Menu",
-    [
-        "Dashboard",
-        "Data Pelanggan",
-        "Stok Galon",
-        "Penjualan",
-        "Pengantaran",
-        "Tagihan",
-        "Laporan",
-        "Pendapatan Bulanan",
-    ]
-)
-
 # =========================
 # DATABASE SEMENTARA
 # =========================
