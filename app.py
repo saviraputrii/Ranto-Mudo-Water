@@ -318,8 +318,8 @@ elif menu == "Laporan":
 
     total_transaksi = len(st.session_state.penjualan)
 
-    total_hutang = st.session_state.hutang["Jumlah Tagihan"].sum() \
-        if not st.session_state.hutang.empty else 0
+    total_hutang = st.session_state.tagihan["Jumlah Tagihan"].sum() \
+        if not st.session_state.tagihan.empty else 0
 
     col1, col2, col3 = st.columns(3)
 
