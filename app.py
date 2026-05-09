@@ -100,6 +100,10 @@ if menu == "Dashboard":
 elif menu == "Data Pelanggan":
 
     st.title("👥 Data Pelanggan")
+    st.markdown("""
+    ### Manajemen Data Pelanggan 
+
+    Menu ini digunakan untuk menyimpan dan mengelola informasi pelanggan air galon isi ulang untuk mempermudah pelayanan, riwayat transaksi, dan pengantaran secara terstruktur.
 
     with st.form("form_pelanggan"):
         nama = st.text_input("Nama")
