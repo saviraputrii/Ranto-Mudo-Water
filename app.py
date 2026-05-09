@@ -281,36 +281,7 @@ elif menu == "Penjualan":
 
     else:
         st.info("Belum ada data penjualan.")
-    st.divider()
-
-    # =========================
-    # HAPUS DATA PENJUALAN
-    # =========================
-    st.subheader("🗑️ Hapus Data Penjualan")
-
-    if not st.session_state.penjualan.empty:
-
-        hapus_penjualan = st.selectbox(
-            "Pilih data penjualan",
-            st.session_state.penjualan.index
-        )
-
-        if st.button("Hapus Penjualan"):
-
-            st.session_state.penjualan = (
-                st.session_state.penjualan.drop(hapus_penjualan)
-            )
-
-            # Reset index
-            st.session_state.penjualan = (
-                st.session_state.penjualan.reset_index(drop=True)
-            )
-
-            st.success("Data penjualan berhasil dihapus!")
-
-    else:
-        st.info("Belum ada data penjualan.")
-
+    
 # =========================
 # TAGIHAN
 # =========================
