@@ -3,6 +3,33 @@ import pandas as pd
 from datetime import datetime
 
 st.set_page_config(
+    # =========================
+# LOGIN ADMIN
+# =========================
+if "login" not in st.session_state:
+    st.session_state.login = False
+
+USERNAME = "admin"
+PASSWORD = "air123"
+
+if not st.session_state.login:
+
+    st.title("🔐 Login Admin")
+
+    username = st.text_input("Username")
+    password = st.text_input("Password", type="password")
+
+    if st.button("Login"):
+
+        if username == USERNAME and password == PASSWORD:
+            st.session_state.login = True
+            st.success("Login berhasil!")
+            st.rerun()
+
+        else:
+            st.error("Username atau password salah!")
+
+    st.stop()
     page_title="Ranto Mudo Water - Aplikasi Galon Isi Ulang",
     page_icon="💧💧",
     layout="wide"
@@ -48,11 +75,23 @@ if "hutang" not in st.session_state:
         "Pelanggan", "Jumlah Hutang"
     ])
 
-if "stok_isi" not in st.session_state:
-    st.session_state.stok_isi = 50
+# =========================
+# STOK GALON
+# =========================
+if "stok_aqua_isi" not in st.session_state:
+    st.session_state.stok_aqua_isi = 50
 
-if "stok_kosong" not in st.session_state:
-    st.session_state.stok_kosong = 20
+if "stok_aqua_kosong" not in st.session_state:
+    st.session_state.stok_aqua_kosong = 20
+
+if "stok_leminerale_isi" not in st.session_state:
+    st.session_state.stok_leminerale_isi = 40
+
+if "stok_leminerale_kosong" not in st.session_state:
+    st.session_state.stok_leminerale_kosong = 15
+
+if "stok_air_isi_ulang" not in st.session_state:
+    st.session_state.stok_air_isi_ulang = 500
 
 # =========================
 # DASHBOARD
@@ -163,37 +202,100 @@ elif menu == "Stok Galon":
 
     st.title("📦 Stok Galon")
 
+    st.subheader("AQUA")
+
     col1, col2 = st.columns(2)
 
     with col1:
-        st.subheader("Galon Isi")
-        tambah_isi = st.number_input(
-            "Tambah Stok Isi",
+        tambah_aqua_isi = st.number_input(
+            "Tambah Stok Aqua Isi",
             min_value=0,
             step=1
         )
 
-        if st.button("Tambah Stok Isi"):
-            st.session_state.stok_isi += tambah_isi
-            st.success("Stok isi berhasil ditambah")
+        if st.button("Tambah Aqua Isi"):
+            st.session_state.stok_aqua_isi += tambah_aqua_isi
+            st.success("Stok Aqua isi berhasil ditambah")
 
     with col2:
-        st.subheader("Galon Kosong")
-        tambah_kosong = st.number_input(
-            "Tambah Stok Kosong",
+        tambah_aqua_kosong = st.number_input(
+            "Tambah Stok Aqua Kosong",
             min_value=0,
             step=1
         )
 
-        if st.button("Tambah Stok Kosong"):
-            st.session_state.stok_kosong += tambah_kosong
-            st.success("Stok kosong berhasil ditambah")
+        if st.button("Tambah Aqua Kosong"):
+            st.session_state.stok_aqua_kosong += tambah_aqua_kosong
+            st.success("Stok Aqua kosong berhasil ditambah")
 
     st.divider()
 
-    st.metric("Total Stok Isi", st.session_state.stok_isi)
-    st.metric("Total Stok Kosong", st.session_state.stok_kosong)
+    st.subheader("LE MINERALE")
 
+    col3, col4 = st.columns(2)
+
+    with col3:
+        tambah_leminerale_isi = st.number_input(
+            "Tambah Stok Le Minerale Isi",
+            min_value=0,
+            step=1
+        )
+
+        if st.button("Tambah Le Minerale Isi"):
+            st.session_state.stok_leminerale_isi += tambah_leminerale_isi
+            st.success("Stok Le Minerale isi berhasil ditambah")
+
+    with col4:
+        tambah_leminerale_kosong = st.number_input(
+            "Tambah Stok Le Minerale Kosong",
+            min_value=0,
+            step=1
+        )
+
+        if st.button("Tambah Le Minerale Kosong"):
+            st.session_state.stok_leminerale_kosong += tambah_leminerale_kosong
+            st.success("Stok Le Minerale kosong berhasil ditambah")
+
+    st.divider()
+
+    st.subheader("Air Isi Ulang")
+
+    tambah_air = st.number_input(
+        "Tambah Stok Air Isi Ulang (Liter)",
+        min_value=0,
+        step=10
+    )
+
+    if st.button("Tambah Air Isi Ulang"):
+        st.session_state.stok_air_isi_ulang += tambah_air
+        st.success("Stok air isi ulang berhasil ditambah")
+
+    st.divider()
+
+    st.metric(
+        "Aqua Isi",
+        st.session_state.stok_aqua_isi
+    )
+
+    st.metric(
+        "Aqua Kosong",
+        st.session_state.stok_aqua_kosong
+    )
+
+    st.metric(
+        "Le Minerale Isi",
+        st.session_state.stok_leminerale_isi
+    )
+
+    st.metric(
+        "Le Minerale Kosong",
+        st.session_state.stok_leminerale_kosong
+    )
+
+    st.metric(
+        "Air Isi Ulang (Liter)",
+        st.session_state.stok_air_isi_ulang
+    )
 # =========================
 # PENJUALAN
 # =========================
