@@ -455,7 +455,7 @@ elif menu == "Penjualan":
         st.session_state.penjualan,
         use_container_width=True
     )
-    # =========================
+# =========================
 # HAPUS DATA PENJUALAN
 # =========================
 st.divider()
