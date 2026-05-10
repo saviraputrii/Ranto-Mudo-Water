@@ -116,8 +116,8 @@ if menu == "Dashboard":
     col1, col2, col3, col4 = st.columns(4)
 
     col1.metric("Pelanggan", len(st.session_state.pelanggan))
-    col2.metric("Stok Isi", st.session_state.stok_isi)
-    col3.metric("Stok Kosong", st.session_state.stok_kosong)
+    col2.metric("Aqua Isi", st.session_state.stok_Aqua_isi)
+    col3.metric("Stok Aqua Kosong", st.session_state.stok_Aqua_kosong)
 
     total_penjualan = st.session_state.penjualan["Total"].sum() \
         if not st.session_state.penjualan.empty else 0
@@ -127,10 +127,10 @@ if menu == "Dashboard":
     st.divider()
 
     if st.session_state.stok_isi < 10:
-        st.warning("⚠️ Stok galon isi hampir habis!")
+        st.warning("⚠️ Stok galon Aqua isi hampir habis!")
 
     if st.session_state.stok_kosong < 5:
-        st.warning("⚠️ Stok galon kosong menipis!")
+        st.warning("⚠️ Stok galon Aqua kosong menipis!")
 
 # =========================
 # DATA PELANGGAN
@@ -346,8 +346,8 @@ elif menu == "Penjualan":
                 ignore_index=True
             )
 
-            st.session_state.stok_isi -= jumlah
-            st.session_state.stok_kosong += jumlah
+            st.session_state.Aqua_isi -= jumlah
+            st.session_state.stok_Aqua_kosong += jumlah
 
             st.success("Penjualan berhasil disimpan!")
 
