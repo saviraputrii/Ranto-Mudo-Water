@@ -142,15 +142,15 @@ else:
         )
     
        col3.metric(
-            "Le Minerale Isi",
-            st.session_state.stok_leminerale_isi
-        )
-    
-        total_penjualan = (
-            st.session_state.penjualan["Total"].sum()
-            if not st.session_state.penjualan.empty
-            else 0
-        )
+    "Le Minerale Isi",
+    st.session_state.stok_leminerale_isi
+)
+
+total_penjualan = (
+    st.session_state.penjualan["Total"].sum()
+    if not st.session_state.penjualan.empty
+    else 0
+)
     
         col4.metric(
             "Total Penjualan",
