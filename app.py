@@ -2,8 +2,7 @@ import streamlit as st
 import pandas as pd
 from datetime import datetime
 
-st.set_page_config(
-    # =========================
+# =========================
 # LOGIN ADMIN
 # =========================
 if "login" not in st.session_state:
@@ -30,6 +29,7 @@ if not st.session_state.login:
             st.error("Username atau password salah!")
 
     st.stop()
+    st.set_page_config(
     page_title="Ranto Mudo Water - Aplikasi Galon Isi Ulang",
     page_icon="💧💧",
     layout="wide"
