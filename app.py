@@ -95,6 +95,7 @@ background-color:#f5f7fa;
 padding:25px;
 border-radius:15px;
 box-shadow:0 4px 10px rgba(0,0,0,0.1);
+color:#333333;
 ">
 
 <h2 style="color:#1f4e79;">📌 Informasi Usaha</h2>
