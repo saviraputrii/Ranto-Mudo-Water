@@ -11,6 +11,9 @@ if "login" not in st.session_state:
 USERNAME = "admin"
 PASSWORD = "air123"
 
+# =========================
+# HALAMAN LOGIN
+# =========================
 if not st.session_state.login:
 
     st.title("🔐 Login Admin")
@@ -27,61 +30,69 @@ if not st.session_state.login:
 
         else:
             st.error("Username atau password salah!")
-  
-# =========================
-# SIDEBAR
-# =========================
-st.sidebar.title("💧 Ranto Mudo Water")
-menu = st.sidebar.radio(
-    "Menu",
-    [
-        "Dashboard",
-        "Data Pelanggan",
-        "Stok Galon",
-        "Penjualan",
-        "Tagihan",
-        "Laporan",
-        "Pendapatan Bulanan",
-    ]
-)
 
 # =========================
-# DATABASE SEMENTARA
+# JIKA SUDAH LOGIN
 # =========================
-if "pelanggan" not in st.session_state:
-    st.session_state.pelanggan = pd.DataFrame(columns=[
-        "Nama", "Alamat", "No HP"
-    ])
-if "stok_air_kosong" not in st.session_state:
-    st.session_state.stok_air_kosong = 30
-    
-if "penjualan" not in st.session_state:
-    st.session_state.penjualan = pd.DataFrame(columns=[
-        "Tanggal", "Pelanggan", "Jenis", "Jumlah", "Total"
-    ])
+else:
 
-if "hutang" not in st.session_state:
-    st.session_state.hutang = pd.DataFrame(columns=[
-        "Pelanggan", "Jumlah Hutang"
-    ])
+    # =========================
+    # SIDEBAR
+    # =========================
+    st.sidebar.title("💧 Ranto Mudo Water")
 
-# =========================
-# 🫧STOK GALON KOSONG
-# =========================
-if "stok_aqua_isi" not in st.session_state:
-    st.session_state.stok_aqua_isi = 50
+    if st.sidebar.button("Logout"):
+        st.session_state.login = False
+        st.rerun()
 
-if "stok_aqua_kosong" not in st.session_state:
-    st.session_state.stok_aqua_kosong = 20
+    menu = st.sidebar.radio(
+        "Menu",
+        [
+            "Dashboard",
+            "Data Pelanggan",
+            "Stok Galon",
+            "Penjualan",
+            "Tagihan",
+            "Laporan",
+            "Pendapatan Bulanan",
+        ]
+    )
 
-if "stok_leminerale_isi" not in st.session_state:
-    st.session_state.stok_leminerale_isi = 40
+    # =========================
+    # DATABASE SEMENTARA
+    # =========================
+    if "pelanggan" not in st.session_state:
+        st.session_state.pelanggan = pd.DataFrame(columns=[
+            "Nama", "Alamat", "No HP"
+        ])
 
-if "stok_leminerale_kosong" not in st.session_state:
-    st.session_state.stok_leminerale_kosong = 15
+    if "stok_air_kosong" not in st.session_state:
+        st.session_state.stok_air_kosong = 30
 
-if "stok_air_isi_ulang" not in st.session_state:
-    st.session_state.stok_air_isi_ulang = 1520
+    if "penjualan" not in st.session_state:
+        st.session_state.penjualan = pd.DataFrame(columns=[
+            "Tanggal", "Pelanggan", "Jenis", "Jumlah", "Total"
+        ])
+
+    if "hutang" not in st.session_state:
+        st.session_state.hutang = pd.DataFrame(columns=[
+            "Pelanggan", "Jumlah Hutang"
+        ])
+
+    if "stok_aqua_isi" not in st.session_state:
+        st.session_state.stok_aqua_isi = 50
+
+    if "stok_aqua_kosong" not in st.session_state:
+        st.session_state.stok_aqua_kosong = 20
+
+    if "stok_leminerale_isi" not in st.session_state:
+        st.session_state.stok_leminerale_isi = 40
+
+    if "stok_leminerale_kosong" not in st.session_state:
+        st.session_state.stok_leminerale_kosong = 15
+
+    if "stok_air_isi_ulang" not in st.session_state:
+        st.session_state.stok_air_isi_ulang = 1520
 
 # =========================
 # DASHBOARD
