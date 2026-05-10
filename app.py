@@ -93,13 +93,12 @@ else:
 
     if "stok_air_isi_ulang" not in st.session_state:
         st.session_state.stok_air_isi_ulang = 1520
-        # =========================
-        # DASHBOARD
-        # =========================
-        if menu == "Dashboard":
-        
-                st.title("💧 Dashboard💧")
-                st.markdown("""
+ # =========================
+ # DASHBOARD
+ # =========================
+    if menu == "Dashboard":
+       st.title("💧 Dashboard💧")
+       st.markdown("""
             <div style="
             background-color:#f5f7fa;
             padding:25px;
