@@ -319,34 +319,32 @@ elif menu == "Stok Galon":
         st.session_state.stok_air_isi_ulang += tambah_air
         st.success("Stok air isi ulang berhasil ditambah")
 
+    col1, col2 = st.columns(2)
+
+with col1:
     st.metric(
-        "Stok Air Isi Ulang (Liter)",
-        st.session_state.stok_air_isi_ulang
+        "Stok Air Isi Ulang",
+        f"{st.session_state.stok_air_isi_ulang} L"
     )
 
-    st.divider()
+with col2:
 
-    # =========================
-    # GALON KOSONG ISI ULANG
-    # =========================
-    st.subheader("🫧 Galon Kosong Isi Ulang")
-
-    tambah_kosong_isi_ulang = st.number_input(
-        "Tambah Stok Galon Kosong Isi Ulang",
-        min_value=0,
-        step=1
+    total_isi_ulang = (
+        st.session_state.penjualan[
+            st.session_state.penjualan["Jenis"] == "ISI ULANG"
+        ]["Jumlah"].sum()
+        if not st.session_state.penjualan.empty
+        else 0
     )
 
-    if st.button("Tambah Galon Kosong Isi Ulang"):
-        st.session_state.stok_air_kosong += tambah_kosong_isi_ulang
-        st.success("Stok galon kosong isi ulang berhasil ditambah")
+    liter_terjual = total_isi_ulang * 19
 
     st.metric(
-        "Galon Kosong Isi Ulang",
-        st.session_state.stok_air_kosong
+        "Air Isi Ulang Terjual",
+        f"{liter_terjual} L"
     )
 
-    st.divider()
+    
 
     # =========================
     # TOTAL STOK
@@ -356,6 +354,7 @@ elif menu == "Stok Galon":
 
     st.metric("Le Minerale Isi", st.session_state.stok_leminerale_isi)
     st.metric("Le Minerale Kosong", st.session_state.stok_leminerale_kosong)
+    
 # =========================
 # PENJUALAN
 # =========================
