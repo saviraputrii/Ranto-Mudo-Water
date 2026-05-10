@@ -141,7 +141,7 @@ else:
             st.session_state.stok_aqua_isi
         )
     
-        col3.metric(
+       col3.metric(
             "Le Minerale Isi",
             st.session_state.stok_leminerale_isi
         )
