@@ -2,6 +2,12 @@ import streamlit as st
 import pandas as pd
 from datetime import datetime
 
+ st.set_page_config(
+    page_title="Ranto Mudo Water - Aplikasi Galon Isi Ulang",
+    page_icon="💧💧",
+    layout="wide"
+ )
+
 # =========================
 # LOGIN ADMIN
 # =========================
@@ -28,14 +34,6 @@ if not st.session_state.login:
         else:
             st.error("Username atau password salah!")
             
-    import streamlit as st
-    import pandas as pd
-    from datetime import datetime        
-    st.set_page_config(
-    page_title="Ranto Mudo Water - Aplikasi Galon Isi Ulang",
-    page_icon="💧💧",
-    layout="wide"
-)
 
 # =========================
 # SIDEBAR
@@ -251,6 +249,9 @@ elif menu == "Stok Galon":
 
     st.title("📦 Stok Galon")
 
+    # =========================
+    # AQUA
+    # =========================
     st.subheader("AQUA")
 
     col1, col2 = st.columns(2)
@@ -279,6 +280,9 @@ elif menu == "Stok Galon":
 
     st.divider()
 
+    # =========================
+    # LE MINERALE
+    # =========================
     st.subheader("LE MINERALE")
 
     col3, col4 = st.columns(2)
@@ -307,46 +311,10 @@ elif menu == "Stok Galon":
 
     st.divider()
 
-    st.subheader("Air Isi Ulang")
     # =========================
-# STOK AIR ISI ULANG
-# =========================
-
-tambah_air = st.number_input(
-    "Tambah Stok Air Isi Ulang (Liter)",
-    min_value=0,
-    step=10
-)
-
-if st.button("Tambah Air Isi Ulang"):
-    st.session_state.stok_air_isi_ulang += tambah_air
-    st.success("Stok air isi ulang berhasil ditambah")
-
-st.metric(
-    "Stok Air Isi Ulang (Liter)",
-    st.session_state.stok_air_isi_ulang
-)
-
-# =========================
-# STOK GALON KOSONG ISI ULANG
-# =========================
-
-st.subheader("Galon Isi Ulang Kosong")
-
-tambah_kosong_isi_ulang = st.number_input(
-    "Tambah Stok Galon Kosong Isi Ulang",
-    min_value=0,
-    step=1
-)
-
-if st.button("Tambah Galon Kosong Isi Ulang"):
-    st.session_state.stok_air_kosong += tambah_kosong_isi_ulang
-    st.success("Stok galon kosong isi ulang berhasil ditambah")
-
-st.metric(
-    "Galon Kosong Isi Ulang",
-    st.session_state.stok_air_kosong
-)
+    # AIR ISI ULANG
+    # =========================
+    st.subheader("💧 Air Isi Ulang")
 
     tambah_air = st.number_input(
         "Tambah Stok Air Isi Ulang (Liter)",
@@ -358,32 +326,43 @@ st.metric(
         st.session_state.stok_air_isi_ulang += tambah_air
         st.success("Stok air isi ulang berhasil ditambah")
 
-    st.divider()
-
     st.metric(
-        "Aqua Isi",
-        st.session_state.stok_aqua_isi
-    )
-
-    st.metric(
-        "Aqua Kosong",
-        st.session_state.stok_aqua_kosong
-    )
-
-    st.metric(
-        "Le Minerale Isi",
-        st.session_state.stok_leminerale_isi
-    )
-
-    st.metric(
-        "Le Minerale Kosong",
-        st.session_state.stok_leminerale_kosong
-    )
-
-    st.metric(
-        "Air Isi Ulang (Liter)",
+        "Stok Air Isi Ulang (Liter)",
         st.session_state.stok_air_isi_ulang
     )
+
+    st.divider()
+
+    # =========================
+    # GALON KOSONG ISI ULANG
+    # =========================
+    st.subheader("🫧 Galon Kosong Isi Ulang")
+
+    tambah_kosong_isi_ulang = st.number_input(
+        "Tambah Stok Galon Kosong Isi Ulang",
+        min_value=0,
+        step=1
+    )
+
+    if st.button("Tambah Galon Kosong Isi Ulang"):
+        st.session_state.stok_air_kosong += tambah_kosong_isi_ulang
+        st.success("Stok galon kosong isi ulang berhasil ditambah")
+
+    st.metric(
+        "Galon Kosong Isi Ulang",
+        st.session_state.stok_air_kosong
+    )
+
+    st.divider()
+
+    # =========================
+    # TOTAL STOK
+    # =========================
+    st.metric("Aqua Isi", st.session_state.stok_aqua_isi)
+    st.metric("Aqua Kosong", st.session_state.stok_aqua_kosong)
+
+    st.metric("Le Minerale Isi", st.session_state.stok_leminerale_isi)
+    st.metric("Le Minerale Kosong", st.session_state.stok_leminerale_kosong)
 # =========================
 # PENJUALAN
 # =========================
