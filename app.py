@@ -27,12 +27,7 @@ if not st.session_state.login:
 
         else:
             st.error("Username atau password salah!")
-  st.set_page_config(
-    page_title="Ranto Mudo Water - Aplikasi Galon Isi Ulang",
-    page_icon="💧💧",
-    layout="wide"
- )           
- 
+  
 # =========================
 # SIDEBAR
 # =========================
