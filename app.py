@@ -343,15 +343,37 @@ elif menu == "Stok Galon":
             f"{liter_terjual} L"
         )
         
-        # =========================
-        # TOTAL STOK
-        # =========================
-        st.metric("Aqua Isi", st.session_state.stok_aqua_isi)
-        st.metric("Aqua Kosong", st.session_state.stok_aqua_kosong)
-    
-        st.metric("Le Minerale Isi", st.session_state.stok_leminerale_isi)
-        st.metric("Le Minerale Kosong", st.session_state.stok_leminerale_kosong)
-    
+      # =========================
+      # TOTAL STOK
+      # =========================
+        st.subheader("📦 Total Stok")
+        
+        col1, col2, col3, col4 = st.columns(4)
+        
+        with col1:
+            st.metric(
+                "Aqua Isi",
+                st.session_state.stok_aqua_isi
+            )
+        
+        with col2:
+            st.metric(
+                "Aqua Kosong",
+                st.session_state.stok_aqua_kosong
+            )
+        
+        with col3:
+            st.metric(
+                "Le Minerale Isi",
+                st.session_state.stok_leminerale_isi
+            )
+        
+        with col4:
+            st.metric(
+                "Le Minerale Kosong",
+                st.session_state.stok_leminerale_kosong
+            )
+        
 # =========================
 # PENJUALAN
 # =========================
