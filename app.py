@@ -59,15 +59,12 @@ if "pelanggan" not in st.session_state:
     st.session_state.pelanggan = pd.DataFrame(columns=[
         "Nama", "Alamat", "No HP"
     ])
-
+if "stok_air_kosong" not in st.session_state:
+    st.session_state.stok_air_kosong = 30
+    
 if "penjualan" not in st.session_state:
     st.session_state.penjualan = pd.DataFrame(columns=[
-        "Tanggal", "Pelanggan", "Jumlah", "Total"
-    ])
-
-if "pengantaran" not in st.session_state:
-    st.session_state.pengantaran = pd.DataFrame(columns=[
-        "Tanggal", "Pelanggan", "Status"
+        "Tanggal", "Pelanggan", "Jenis", "Jumlah", "Total"
     ])
 
 if "hutang" not in st.session_state:
@@ -99,38 +96,58 @@ if "stok_air_isi_ulang" not in st.session_state:
 if menu == "Dashboard":
 
     st.title("💧 Dashboard💧")
-    
-    st.markdown("""
-    <div class="info-box">
-    <h3>📌 Informasi Usaha</h3>
-    <p>
-    Selamat datang di platform manajemen depot air minum isi ulang yang dirancang untuk mendukung operasional bisnis secara modern, terstruktur, dan terpercaya. Aplikasi ini hadir sebagai solusi dalam membantu proses pengelolaan usaha agar menjadi lebih efektif, akurat, dan mudah diakses kapan saja.
-    Melalui sistem yang terintegrasi, seluruh aktivitas operasional mulai dari pengelolaan data pelanggan, monitoring stok galon, pencatatan transaksi penjualan, pengelolaan tagihan pelanggan, hingga penyusunan laporan usaha dapat dilakukan secara otomatis dalam satu aplikasi.
-    Dengan tampilan yang sederhana namun profesional, aplikasi ini membantu pemilik usaha dalam meningkatkan kualitas pelayanan, meminimalkan kesalahan pencatatan, serta mempermudah proses pengambilan keputusan berdasarkan data yang tersusun secara real-time.
-    </p>
-    </div>
-    """, unsafe_allow_html=True)
-
-    st.write("")
 
     col1, col2, col3, col4 = st.columns(4)
 
-    col1.metric("Pelanggan", len(st.session_state.pelanggan))
-    col2.metric("Aqua Isi", st.session_state.stok_Aqua_isi)
-    col3.metric("Stok Aqua Kosong", st.session_state.stok_Aqua_kosong)
+    col1.metric(
+        "Pelanggan",
+        len(st.session_state.pelanggan)
+    )
 
-    total_penjualan = st.session_state.penjualan["Total"].sum() \
-        if not st.session_state.penjualan.empty else 0
+    col2.metric(
+        "Aqua Isi",
+        st.session_state.stok_aqua_isi
+    )
 
-    col4.metric("Total Penjualan", f"Rp {total_penjualan:,}")
+    col3.metric(
+        "Le Minerale Isi",
+        st.session_state.stok_leminerale_isi
+    )
+
+    total_penjualan = (
+        st.session_state.penjualan["Total"].sum()
+        if not st.session_state.penjualan.empty
+        else 0
+    )
+
+    col4.metric(
+        "Total Penjualan",
+        f"Rp {total_penjualan:,}"
+    )
 
     st.divider()
 
-    if st.session_state.stok_isi < 10:
-        st.warning("⚠️ Stok galon Aqua isi hampir habis!")
+    # INFO STOK
+    st.subheader("📦 Informasi Stok")
 
-    if st.session_state.stok_kosong < 5:
-        st.warning("⚠️ Stok galon Aqua kosong menipis!")
+    st.write(
+        f"🟦 Aqua Kosong : {st.session_state.stok_aqua_kosong}"
+    )
+
+    st.write(
+        f"🟩 Le Minerale Kosong : {st.session_state.stok_leminerale_kosong}"
+    )
+
+    st.write(
+        f"💧 Air Isi Ulang : {st.session_state.stok_air_isi_ulang} Liter"
+    )
+
+    # WARNING
+    if st.session_state.stok_aqua_isi < 10:
+        st.warning("⚠️ Stok Aqua isi hampir habis!")
+
+    if st.session_state.stok_leminerale_isi < 10:
+        st.warning("⚠️ Stok Le Minerale isi hampir habis!")
 
 # =========================
 # DATA PELANGGAN
@@ -316,6 +333,15 @@ elif menu == "Penjualan":
             pelanggan_list
         )
 
+        jenis_galon = st.selectbox(
+            "Galon yang Dibeli",
+            [
+                "AQUA",
+                "LE MINERALE",
+                "ISI ULANG"
+            ]
+        )
+
         jumlah = st.number_input(
             "Jumlah Galon",
             min_value=1,
@@ -328,7 +354,9 @@ elif menu == "Penjualan":
             step=1000
         )
 
-        submit_jual = st.form_submit_button("Simpan Penjualan")
+        submit_jual = st.form_submit_button(
+            "Simpan Penjualan"
+        )
 
         if submit_jual:
 
@@ -337,6 +365,7 @@ elif menu == "Penjualan":
             data_jual = pd.DataFrame([{
                 "Tanggal": datetime.now().strftime("%Y-%m-%d"),
                 "Pelanggan": pelanggan,
+                "Jenis": jenis_galon,
                 "Jumlah": jumlah,
                 "Total": total
             }])
@@ -346,43 +375,31 @@ elif menu == "Penjualan":
                 ignore_index=True
             )
 
-            st.session_state.Aqua_isi -= jumlah
-            st.session_state.stok_Aqua_kosong += jumlah
+            # UPDATE STOK
+            if jenis_galon == "AQUA":
+
+                st.session_state.stok_aqua_isi -= jumlah
+                st.session_state.stok_aqua_kosong += jumlah
+
+            elif jenis_galon == "LE MINERALE":
+
+                st.session_state.stok_leminerale_isi -= jumlah
+                st.session_state.stok_leminerale_kosong += jumlah
+
+            elif jenis_galon == "ISI ULANG":
+
+                st.session_state.stok_air_isi_ulang -= (
+                    jumlah * 19
+                )
+
+                st.session_state.stok_air_kosong += jumlah
 
             st.success("Penjualan berhasil disimpan!")
 
-    # TABEL PENJUALAN
     st.dataframe(
         st.session_state.penjualan,
         use_container_width=True
     )
-
-    st.divider()
-
-    # HAPUS DATA PENJUALAN
-    st.subheader("🗑️ Hapus Data Penjualan")
-
-    if not st.session_state.penjualan.empty:
-
-        hapus_penjualan = st.selectbox(
-            "Pilih data penjualan",
-            st.session_state.penjualan.index
-        )
-
-        if st.button("Hapus Penjualan"):
-
-            st.session_state.penjualan = (
-                st.session_state.penjualan.drop(hapus_penjualan)
-            )
-
-            st.session_state.penjualan = (
-                st.session_state.penjualan.reset_index(drop=True)
-            )
-
-            st.success("Data penjualan berhasil dihapus!")
-
-    else:
-        st.info("Belum ada data penjualan.")
     
 # =========================
 # TAGIHAN
