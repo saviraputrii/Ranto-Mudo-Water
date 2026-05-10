@@ -336,12 +336,6 @@ elif menu == "Stok Galon":
             else 0
         )
 
-        liter_terjual = total_isi_ulang * 19
-
-        st.metric(
-            "Air Isi Ulang Terjual",
-            f"{liter_terjual} L"
-        )
         
       # =========================
       # TOTAL STOK
