@@ -120,13 +120,13 @@ else:
 
         <p style="text-align:justify;">
         Selamat datang di <b>Ranto Mudo Water</b>,
-        aplikasi manajemen air galon isi ulang yang dirancang
+        web aplikasi manajemen air galon isi ulang yang dirancang
         untuk membantu operasional usaha menjadi lebih efisien
         dan terorganisir.
         </p>
 
         <p style="text-align:justify;">
-        Sistem ini membantu pengelolaan data pelanggan,
+        Sistem ini dikembangkan untuk mempermudah pengelolaan data pelanggan, monitoring stok galon, pencatatan transaksi, pengelolaan tagihan, hingga penyusunan laporan usaha secara otomatis dalam satu platform.
         stok galon, transaksi penjualan, tagihan,
         dan laporan usaha secara otomatis.
         </p>
@@ -323,6 +323,39 @@ else:
 
             st.session_state.stok_air_isi_ulang += tambah_air
             st.success("Stok air berhasil ditambah")
+        st.divider()
+
+        # ====================================
+        # TOTAL STOK
+        # ====================================
+        st.subheader("📦 Total Stok")
+
+        col1, col2, col3, col4 = st.columns(4)
+
+        col1.metric(
+            "Aqua Isi",
+            st.session_state.stok_aqua_isi
+        )
+
+        col2.metric(
+            "Aqua Kosong",
+            st.session_state.stok_aqua_kosong
+        )
+
+        col3.metric(
+            "Le Minerale Isi",
+            st.session_state.stok_leminerale_isi
+        )
+
+        col4.metric(
+            "Le Minerale Kosong",
+            st.session_state.stok_leminerale_kosong
+        )
+
+        st.metric(
+            "Air Isi Ulang",
+            f"{st.session_state.stok_air_isi_ulang} Liter"
+        )
 
     # ====================================
     # PENJUALAN
