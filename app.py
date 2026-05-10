@@ -93,44 +93,55 @@ else:
 
     if "stok_air_isi_ulang" not in st.session_state:
         st.session_state.stok_air_isi_ulang = 1520
-    # =========================
-    # DASHBOARD
-    # =========================
-       if menu == "Dashboard":
+ # =========================
+ # DASHBOARD
+ # =========================
+    if menu == "Dashboard":
+       st.title("💧 Dashboard💧")
+       st.markdown("""
+       <div style="
+       background-color:#f5f7fa;
+       padding:25px;
+       border-radius:15px;
+       box-shadow:0 4px 10px rgba(0,0,0,0.1);
+       color:#333333;
+       ">  
+       <h2 style="color:#1f4e79;">📌 Informasi Usaha</h2>
+            
+       <p style="text-align:justify; font-size:16px; color:#333333;">
     
-        st.title("💧 Dashboard💧")
+       Selamat datang di <b>Ranto Mudo Water</b>, aplikasi manajemen  air galon isi ulang yang dirancang untuk membantu proses operasional usaha menjadi efisien dan terorganisir. Sistem ini dikembangkan untuk mempermudah pengelolaan data pelanggan, monitoring stok galon, pencatatan transaksi penjualan, pengelolaan tagihan, hingga penyusunan laporan usaha secara otomatis dalam satu platform.
     
-        st.markdown("""
-        <div style="
-        background-color:#f5f7fa;
-        padding:25px;
-        border-radius:15px;
-        box-shadow:0 4px 10px rgba(0,0,0,0.1);
-        color:#333333;
-        ">
+       </p>
     
-        <h2 style="color:#1f4e79;">📌 Informasi Usaha</h2>
+       <p style="text-align:justify; font-size:16px; color:#333333;">
     
-        <p style="text-align:justify; font-size:16px; color:#333333;">
-        Selamat datang di <b>Ranto Mudo Water</b>.
-        </p>
+       Dengan tampilan yang sederhana namun profesional, aplikasi ini membantu meningkatkan efisiensi pelayanan, meminimalkan kesalahan pencatatan data, serta mempermudah pemilik usaha dalam memantau kondisi bisnis secara real-time. Seluruh informasi tersusun secara rapi sehingga proses pengambilan keputusan dapat dilakukan dengan lebih cepat, tepat, dan akurat.
     
-        </div>
-        """, unsafe_allow_html=True)
+       </p>
     
-        col1, col2, col3, col4 = st.columns(4)
+       <p style="text-align:justify; font-size:16px; color:#333333;">
     
-        col1.metric(
+       Melalui sistem digital berbasis <b>Streamlit</b>, pengelolaan depot air minum isi ulang dapat dilakukan dengan lebih praktis, aman, dan mudah diakses kapan saja sesuai kebutuhan operasional usaha.
+    
+       </p>
+    
+       </div>
+       """, unsafe_allow_html=True)
+    
+       col1, col2, col3, col4 = st.columns(4)
+    
+       col1.metric(
             "Pelanggan",
             len(st.session_state.pelanggan)
         )
     
-        col2.metric(
+       col2.metric(
             "Aqua Isi",
             st.session_state.stok_aqua_isi
         )
     
-        col3.metric(
+       col3.metric(
             "Le Minerale Isi",
             st.session_state.stok_leminerale_isi
         )
@@ -148,6 +159,7 @@ else:
     
         st.divider()
     
+        # INFO STOK
         st.subheader("📦 Informasi Stok")
     
         st.write(
@@ -162,46 +174,48 @@ else:
             f"💧 Air Isi Ulang : {st.session_state.stok_air_isi_ulang} Liter"
         )
     
+        # WARNING
         if st.session_state.stok_aqua_isi < 10:
-            st.warning("⚠️ Stok Aqua isi hampir habis!")
+           st.warning("⚠️ Stok Aqua isi hampir habis!")
     
         if st.session_state.stok_leminerale_isi < 10:
-            st.warning("⚠️ Stok Le Minerale isi hampir habis!")
-    # =========================
-    # DATA PELANGGAN
-    # =========================
-    elif menu == "Data Pelanggan":
-    
-        st.title("👥 Data Pelanggan")
-    
-        with st.form("form_pelanggan"):
-            nama = st.text_input("Nama")
-            alamat = st.text_input("Alamat")
-            hp = st.text_input("No HP")
-    
-            submit = st.form_submit_button("Tambah Pelanggan")
-    
-            if submit:
-                data_baru = pd.DataFrame([{
-                    "Nama": nama,
-                    "Alamat": alamat,
-                    "No HP": hp
-                }])
-    
-                st.session_state.pelanggan = pd.concat(
-                    [st.session_state.pelanggan, data_baru],
-                    ignore_index=True
-                )
-    
-                st.success("Pelanggan berhasil ditambahkan!")
-    
-        # Tampilkan data pelanggan
-        st.dataframe(
-            st.session_state.pelanggan,
-            use_container_width=True
-        )
-    
-        st.divider()
+           st.warning("⚠️ Stok Le Minerale isi hampir habis!")
+
+# =========================
+# DATA PELANGGAN
+# =========================
+elif menu == "Data Pelanggan":
+
+    st.title("👥 Data Pelanggan")
+
+    with st.form("form_pelanggan"):
+        nama = st.text_input("Nama")
+        alamat = st.text_input("Alamat")
+        hp = st.text_input("No HP")
+
+        submit = st.form_submit_button("Tambah Pelanggan")
+
+        if submit:
+            data_baru = pd.DataFrame([{
+                "Nama": nama,
+                "Alamat": alamat,
+                "No HP": hp
+            }])
+
+            st.session_state.pelanggan = pd.concat(
+                [st.session_state.pelanggan, data_baru],
+                ignore_index=True
+            )
+
+            st.success("Pelanggan berhasil ditambahkan!")
+
+    # Tampilkan data pelanggan
+    st.dataframe(
+        st.session_state.pelanggan,
+        use_container_width=True
+    )
+
+    st.divider()
 
     # =========================
     # HAPUS DATA PELANGGAN
@@ -617,5 +631,3 @@ elif menu == "Pendapatan Bulanan":
         st.session_state.penjualan,
         use_container_width=True
     )
-
-
