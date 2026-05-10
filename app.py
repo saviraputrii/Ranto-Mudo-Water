@@ -312,7 +312,7 @@ else:
         st.subheader("💧 Air Isi Ulang")
 
         tambah_air = st.number_input(
-            "Tambah Air Isi Ulang",
+            "Tambah Air Isi Ulang (Liter)",
             min_value=0,
             step=10
         )
