@@ -456,17 +456,17 @@ elif menu == "Penjualan":
         use_container_width=True
     )
     # =========================
-    # HAPUS DATA PENJUALAN
-    # =========================
-    st.divider()
-    
-    st.subheader("🗑️ Hapus Data Penjualan")
-    
-    if not st.session_state.penjualan.empty:
-    
-        pilih_hapus = st.selectbox(
-            "Pilih data penjualan",
-            st.session_state.penjualan.index
+# HAPUS DATA PENJUALAN
+# =========================
+st.divider()
+
+st.subheader("🗑️ Hapus Data Penjualan")
+
+if not st.session_state.penjualan.empty:
+
+    pilih_hapus = st.selectbox(
+        "Pilih data penjualan",
+        st.session_state.penjualan.index
     )
 
     if st.button("Hapus Penjualan"):
@@ -489,7 +489,7 @@ elif menu == "Penjualan":
         elif jenis == "ISI ULANG":
             st.session_state.stok_air_isi_ulang += jumlah * 19
 
-        # Hapus data
+        # Hapus data penjualan
         st.session_state.penjualan = (
             st.session_state.penjualan.drop(pilih_hapus)
             .reset_index(drop=True)
@@ -497,8 +497,9 @@ elif menu == "Penjualan":
 
         st.success("Data penjualan berhasil dihapus!")
 
-        else:
-            st.info("Belum ada data penjualan.")
+else:
+    st.info("Belum ada data penjualan.")
+    
 # =========================
 # TAGIHAN
 # =========================
