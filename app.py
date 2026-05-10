@@ -129,14 +129,14 @@ else:
        </div>
        """, unsafe_allow_html=True)
     
-        col1, col2, col3, col4 = st.columns(4)
+       col1, col2, col3, col4 = st.columns(4)
     
-        col1.metric(
+       col1.metric(
             "Pelanggan",
             len(st.session_state.pelanggan)
         )
     
-        col2.metric(
+       col2.metric(
             "Aqua Isi",
             st.session_state.stok_aqua_isi
         )
