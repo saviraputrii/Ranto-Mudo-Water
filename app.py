@@ -119,13 +119,11 @@ else:
 
         <p style="text-align:justify;">
         Selamat datang di <b>Ranto Mudo Water</b>,
-        aplikasi manajemen depot air galon isi ulang.
+        web aplikasi manajemen air galon isi ulang yang dirancang untuk membantu proses operasional usaha menjadi efisien dan teroganisir. Sistem ini dikembangkan untuk mempermudah pengelolaan data pelanggan, monitoring, stok galon, pencatatan transaksi, penjualan, pengolaan tagihan, hingga penyusunan laporan usaha secara otomatis dalam satu platform.
         </p>
 
         <p style="text-align:justify;">
-        Aplikasi ini membantu pengelolaan pelanggan,
-        stok galon, transaksi penjualan,
-        tagihan, dan laporan usaha.
+        Dengan tampilan sederhana, webs aplikasi ini membantu meningkatkan efisiensi pelayanan, meminimalkan kesalahan pencatatan data serta mempermudah pemilik usaha dalam memantau kondisi bisnis secara real time.
         </p>
 
         </div>
