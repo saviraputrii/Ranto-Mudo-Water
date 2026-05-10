@@ -123,7 +123,7 @@ else:
         </p>
 
         <p style="text-align:justify;">
-        Dengan tampilan sederhana, webs aplikasi ini membantu meningkatkan efisiensi pelayanan, meminimalkan kesalahan pencatatan data serta mempermudah pemilik usaha dalam memantau kondisi bisnis secara real time.
+        Dengan tampilan sederhana, web aplikasi ini membantu meningkatkan efisiensi pelayanan, meminimalkan kesalahan pencatatan data serta mempermudah pemilik usaha dalam memantau kondisi bisnis secara real time.
         </p>
 
         </div>
