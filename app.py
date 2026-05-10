@@ -318,42 +318,39 @@ elif menu == "Stok Galon":
     if st.button("Tambah Air Isi Ulang"):
         st.session_state.stok_air_isi_ulang += tambah_air
         st.success("Stok air isi ulang berhasil ditambah")
-
     col1, col2 = st.columns(2)
 
-with col1:
-    st.metric(
-        "Stok Air Isi Ulang",
-        f"{st.session_state.stok_air_isi_ulang} L"
-    )
+    with col1:
+        st.metric(
+            "Stok Air Isi Ulang",
+            f"{st.session_state.stok_air_isi_ulang} L"
+        )
 
-with col2:
+    with col2:
 
-    total_isi_ulang = (
-        st.session_state.penjualan[
-            st.session_state.penjualan["Jenis"] == "ISI ULANG"
-        ]["Jumlah"].sum()
-        if not st.session_state.penjualan.empty
-        else 0
-    )
+        total_isi_ulang = (
+            st.session_state.penjualan[
+                st.session_state.penjualan["Jenis"] == "ISI ULANG"
+            ]["Jumlah"].sum()
+            if not st.session_state.penjualan.empty
+            else 0
+        )
 
-    liter_terjual = total_isi_ulang * 19
+        liter_terjual = total_isi_ulang * 19
 
-    st.metric(
-        "Air Isi Ulang Terjual",
-        f"{liter_terjual} L"
-    )
-
+        st.metric(
+            "Air Isi Ulang Terjual",
+            f"{liter_terjual} L"
+        )
+        
+        # =========================
+        # TOTAL STOK
+        # =========================
+        st.metric("Aqua Isi", st.session_state.stok_aqua_isi)
+        st.metric("Aqua Kosong", st.session_state.stok_aqua_kosong)
     
-
-    # =========================
-    # TOTAL STOK
-    # =========================
-    st.metric("Aqua Isi", st.session_state.stok_aqua_isi)
-    st.metric("Aqua Kosong", st.session_state.stok_aqua_kosong)
-
-    st.metric("Le Minerale Isi", st.session_state.stok_leminerale_isi)
-    st.metric("Le Minerale Kosong", st.session_state.stok_leminerale_kosong)
+        st.metric("Le Minerale Isi", st.session_state.stok_leminerale_isi)
+        st.metric("Le Minerale Kosong", st.session_state.stok_leminerale_kosong)
     
 # =========================
 # PENJUALAN
