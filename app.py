@@ -176,10 +176,10 @@ else:
     
         # WARNING
         if st.session_state.stok_aqua_isi < 10:
-            st.warning("⚠️ Stok Aqua isi hampir habis!")
+           st.warning("⚠️ Stok Aqua isi hampir habis!")
     
         if st.session_state.stok_leminerale_isi < 10:
-            st.warning("⚠️ Stok Le Minerale isi hampir habis!")
+           st.warning("⚠️ Stok Le Minerale isi hampir habis!")
 
 # =========================
 # DATA PELANGGAN
