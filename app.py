@@ -424,8 +424,8 @@ else:
             use_container_width=True
         )
         # ====================================
-# HAPUS DATA PENJUALAN
-# ====================================
+        # HAPUS DATA PENJUALAN
+        # ====================================
 st.divider()
 
 st.subheader("🗑️ Hapus Data Penjualan")
