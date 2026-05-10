@@ -455,7 +455,50 @@ elif menu == "Penjualan":
         st.session_state.penjualan,
         use_container_width=True
     )
-    
+    # =========================
+# HAPUS DATA PENJUALAN
+# =========================
+st.divider()
+
+st.subheader("🗑️ Hapus Data Penjualan")
+
+if not st.session_state.penjualan.empty:
+
+    pilih_hapus = st.selectbox(
+        "Pilih data penjualan",
+        st.session_state.penjualan.index
+    )
+
+    if st.button("Hapus Penjualan"):
+
+        # Ambil data sebelum dihapus
+        data_hapus = st.session_state.penjualan.loc[pilih_hapus]
+
+        jenis = data_hapus["Jenis"]
+        jumlah = data_hapus["Jumlah"]
+
+        # Kembalikan stok
+        if jenis == "AQUA":
+            st.session_state.stok_aqua_isi += jumlah
+            st.session_state.stok_aqua_kosong -= jumlah
+
+        elif jenis == "LE MINERALE":
+            st.session_state.stok_leminerale_isi += jumlah
+            st.session_state.stok_leminerale_kosong -= jumlah
+
+        elif jenis == "ISI ULANG":
+            st.session_state.stok_air_isi_ulang += jumlah * 19
+
+        # Hapus data
+        st.session_state.penjualan = (
+            st.session_state.penjualan.drop(pilih_hapus)
+            .reset_index(drop=True)
+        )
+
+        st.success("Data penjualan berhasil dihapus!")
+
+else:
+    st.info("Belum ada data penjualan.")
 # =========================
 # TAGIHAN
 # =========================
