@@ -73,7 +73,7 @@ if "hutang" not in st.session_state:
     ])
 
 # =========================
-# STOK GALON
+# 🫧STOK GALON KOSONG
 # =========================
 if "stok_aqua_isi" not in st.session_state:
     st.session_state.stok_aqua_isi = 50
@@ -88,7 +88,7 @@ if "stok_leminerale_kosong" not in st.session_state:
     st.session_state.stok_leminerale_kosong = 15
 
 if "stok_air_isi_ulang" not in st.session_state:
-    st.session_state.stok_air_isi_ulang = 500
+    st.session_state.stok_air_isi_ulang = 1520
 
 # =========================
 # DASHBOARD
@@ -96,6 +96,36 @@ if "stok_air_isi_ulang" not in st.session_state:
 if menu == "Dashboard":
 
     st.title("💧 Dashboard💧")
+    st.markdown("""
+<div style="
+background-color:#f5f7fa;
+padding:25px;
+border-radius:15px;
+box-shadow:0 4px 10px rgba(0,0,0,0.1);
+">
+
+<h2 style="color:#1f4e79;">📌 Informasi Usaha</h2>
+
+<p style="text-align:justify; font-size:16px; color:#333333;">
+
+Selamat datang di <b>Ranto Mudo Water</b>, aplikasi manajemen  air galon isi ulang yang dirancang untuk membantu proses operasional usaha menjadi efisien dan terorganisir. Sistem ini dikembangkan untuk mempermudah pengelolaan data pelanggan, monitoring stok galon, pencatatan transaksi penjualan, pengelolaan tagihan, hingga penyusunan laporan usaha secara otomatis dalam satu platform.
+
+</p>
+
+<p style="text-align:justify; font-size:16px; color:#333333;">
+
+Dengan tampilan yang sederhana namun profesional, aplikasi ini membantu meningkatkan efisiensi pelayanan, meminimalkan kesalahan pencatatan data, serta mempermudah pemilik usaha dalam memantau kondisi bisnis secara real-time. Seluruh informasi tersusun secara rapi sehingga proses pengambilan keputusan dapat dilakukan dengan lebih cepat, tepat, dan akurat.
+
+</p>
+
+<p style="text-align:justify; font-size:16px; color:#333333;">
+
+Melalui sistem digital berbasis <b>Streamlit</b>, pengelolaan depot air minum isi ulang dapat dilakukan dengan lebih praktis, aman, dan mudah diakses kapan saja sesuai kebutuhan operasional usaha.
+
+</p>
+
+</div>
+""", unsafe_allow_html=True)
 
     col1, col2, col3, col4 = st.columns(4)
 
