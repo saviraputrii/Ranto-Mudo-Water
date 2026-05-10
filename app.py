@@ -38,7 +38,7 @@ if not st.session_state.login:
             st.rerun()
 
         else:
-            st.error("Username atau password salah!")
+            st.error("Username atau Password salah!")
 
 # ====================================
 # SETELAH LOGIN
@@ -115,27 +115,32 @@ else:
         box-shadow:0 4px 10px rgba(0,0,0,0.1);
         color:#333333;
         ">
+
         <h2 style="color:#1f4e79;">📌 Informasi Usaha</h2>
 
         <p style="text-align:justify;">
         Selamat datang di <b>Ranto Mudo Water</b>,
-        web aplikasi manajemen air galon isi ulang yang dirancang untuk membantu proses operasional usaha menjadi efisien dan teroganisir. Sistem ini dikembangkan untuk mempermudah pengelolaan data pelanggan, monitoring, stok galon, pencatatan transaksi, penjualan, pengolaan tagihan, hingga penyusunan laporan usaha secara otomatis dalam satu platform.
+        aplikasi manajemen air galon isi ulang yang dirancang
+        untuk membantu operasional usaha menjadi lebih efisien
+        dan terorganisir.
         </p>
 
         <p style="text-align:justify;">
-        Dengan tampilan sederhana, web aplikasi ini membantu meningkatkan efisiensi pelayanan, meminimalkan kesalahan pencatatan data serta mempermudah pemilik usaha dalam memantau kondisi bisnis secara real time.
+        Sistem ini membantu pengelolaan data pelanggan,
+        stok galon, transaksi penjualan, tagihan,
+        dan laporan usaha secara otomatis.
         </p>
 
         </div>
         """, unsafe_allow_html=True)
-
-        col1, col2, col3, col4 = st.columns(4)
 
         total_penjualan = (
             st.session_state.penjualan["Total"].sum()
             if not st.session_state.penjualan.empty
             else 0
         )
+
+        col1, col2, col3, col4 = st.columns(4)
 
         col1.metric(
             "Pelanggan",
@@ -174,10 +179,10 @@ else:
         )
 
         if st.session_state.stok_aqua_isi < 10:
-            st.warning("⚠️ Stok Aqua isi hampir habis!")
+            st.warning("⚠️ Stok Aqua hampir habis!")
 
         if st.session_state.stok_leminerale_isi < 10:
-            st.warning("⚠️ Stok Le Minerale isi hampir habis!")
+            st.warning("⚠️ Stok Le Minerale hampir habis!")
 
     # ====================================
     # DATA PELANGGAN
@@ -221,11 +226,11 @@ else:
         if not st.session_state.pelanggan.empty:
 
             pelanggan_hapus = st.selectbox(
-                "Pilih pelanggan",
+                "Pilih Pelanggan",
                 st.session_state.pelanggan["Nama"]
             )
 
-            if st.button("Hapus"):
+            if st.button("Hapus Pelanggan"):
 
                 st.session_state.pelanggan = (
                     st.session_state.pelanggan[
@@ -319,37 +324,6 @@ else:
             st.session_state.stok_air_isi_ulang += tambah_air
             st.success("Stok air berhasil ditambah")
 
-        st.divider()
-
-        st.subheader("📦 Total Stok")
-
-        col1, col2, col3, col4 = st.columns(4)
-
-        col1.metric(
-            "Aqua Isi",
-            st.session_state.stok_aqua_isi
-        )
-
-        col2.metric(
-            "Aqua Kosong",
-            st.session_state.stok_aqua_kosong
-        )
-
-        col3.metric(
-            "Le Minerale Isi",
-            st.session_state.stok_leminerale_isi
-        )
-
-        col4.metric(
-            "Le Minerale Kosong",
-            st.session_state.stok_leminerale_kosong
-        )
-
-        st.metric(
-            "Air Isi Ulang",
-            f"{st.session_state.stok_air_isi_ulang} Liter"
-        )
-
     # ====================================
     # PENJUALAN
     # ====================================
@@ -387,7 +361,7 @@ else:
                 step=1000
             )
 
-            submit = st.form_submit_button("Simpan")
+            submit = st.form_submit_button("Simpan Penjualan")
 
             if submit:
 
@@ -406,6 +380,7 @@ else:
                     ignore_index=True
                 )
 
+                # UPDATE STOK
                 if jenis == "AQUA":
                     st.session_state.stok_aqua_isi -= jumlah
                     st.session_state.stok_aqua_kosong += jumlah
@@ -423,6 +398,48 @@ else:
             st.session_state.penjualan,
             use_container_width=True
         )
+
+        # ====================================
+        # HAPUS PENJUALAN
+        # ====================================
+        st.divider()
+
+        st.subheader("🗑️ Hapus Data Penjualan")
+
+        if not st.session_state.penjualan.empty:
+
+            pilih_hapus = st.selectbox(
+                "Pilih Index Penjualan",
+                st.session_state.penjualan.index
+            )
+
+            if st.button("Hapus Penjualan"):
+
+                data_hapus = st.session_state.penjualan.loc[pilih_hapus]
+
+                jenis = data_hapus["Jenis"]
+                jumlah = data_hapus["Jumlah"]
+
+                # Kembalikan stok
+                if jenis == "AQUA":
+                    st.session_state.stok_aqua_isi += jumlah
+                    st.session_state.stok_aqua_kosong -= jumlah
+
+                elif jenis == "LE MINERALE":
+                    st.session_state.stok_leminerale_isi += jumlah
+                    st.session_state.stok_leminerale_kosong -= jumlah
+
+                elif jenis == "ISI ULANG":
+                    st.session_state.stok_air_isi_ulang += jumlah * 19
+
+                # Hapus data
+                st.session_state.penjualan = (
+                    st.session_state.penjualan
+                    .drop(pilih_hapus)
+                    .reset_index(drop=True)
+                )
+
+                st.success("Data penjualan berhasil dihapus!")
 
     # ====================================
     # TAGIHAN
@@ -470,6 +487,30 @@ else:
             st.session_state.hutang,
             use_container_width=True
         )
+
+        # ====================================
+        # HAPUS TAGIHAN
+        # ====================================
+        st.divider()
+
+        st.subheader("🗑️ Hapus Tagihan")
+
+        if not st.session_state.hutang.empty:
+
+            hapus_tagihan = st.selectbox(
+                "Pilih Index Tagihan",
+                st.session_state.hutang.index
+            )
+
+            if st.button("Hapus Tagihan"):
+
+                st.session_state.hutang = (
+                    st.session_state.hutang
+                    .drop(hapus_tagihan)
+                    .reset_index(drop=True)
+                )
+
+                st.success("Tagihan berhasil dihapus!")
 
     # ====================================
     # LAPORAN
