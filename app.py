@@ -93,94 +93,80 @@ else:
 
     if "stok_air_isi_ulang" not in st.session_state:
         st.session_state.stok_air_isi_ulang = 1520
- # =========================
- # DASHBOARD
- # =========================
-    if menu == "Dashboard":
-       st.title("💧 Dashboard💧")
-       st.markdown("""
-       <div style="
-       background-color:#f5f7fa;
-       padding:25px;
-       border-radius:15px;
-       box-shadow:0 4px 10px rgba(0,0,0,0.1);
-       color:#333333;
-       ">  
-       <h2 style="color:#1f4e79;">📌 Informasi Usaha</h2>
-            
-       <p style="text-align:justify; font-size:16px; color:#333333;">
-    
-       Selamat datang di <b>Ranto Mudo Water</b>, aplikasi manajemen  air galon isi ulang yang dirancang untuk membantu proses operasional usaha menjadi efisien dan terorganisir. Sistem ini dikembangkan untuk mempermudah pengelolaan data pelanggan, monitoring stok galon, pencatatan transaksi penjualan, pengelolaan tagihan, hingga penyusunan laporan usaha secara otomatis dalam satu platform.
-    
-       </p>
-    
-       <p style="text-align:justify; font-size:16px; color:#333333;">
-    
-       Dengan tampilan yang sederhana namun profesional, aplikasi ini membantu meningkatkan efisiensi pelayanan, meminimalkan kesalahan pencatatan data, serta mempermudah pemilik usaha dalam memantau kondisi bisnis secara real-time. Seluruh informasi tersusun secara rapi sehingga proses pengambilan keputusan dapat dilakukan dengan lebih cepat, tepat, dan akurat.
-    
-       </p>
-    
-       <p style="text-align:justify; font-size:16px; color:#333333;">
-    
-       Melalui sistem digital berbasis <b>Streamlit</b>, pengelolaan depot air minum isi ulang dapat dilakukan dengan lebih praktis, aman, dan mudah diakses kapan saja sesuai kebutuhan operasional usaha.
-    
-       </p>
-    
-       </div>
-       """, unsafe_allow_html=True)
-    
-       col1, col2, col3, col4 = st.columns(4)
-    
-       col1.metric(
-            "Pelanggan",
-            len(st.session_state.pelanggan)
-        )
-    
-       col2.metric(
-            "Aqua Isi",
-            st.session_state.stok_aqua_isi
-        )
-    
-       col3.metric(
-    "Le Minerale Isi",
-    st.session_state.stok_leminerale_isi
-)
+# =========================
+# DASHBOARD
+# =========================
+if menu == "Dashboard":
 
-total_penjualan = (
-    st.session_state.penjualan["Total"].sum()
-    if not st.session_state.penjualan.empty
-    else 0
-)
-    
-        col4.metric(
-            "Total Penjualan",
-            f"Rp {total_penjualan:,}"
-        )
-    
-        st.divider()
-    
-        # INFO STOK
-        st.subheader("📦 Informasi Stok")
-    
-        st.write(
-            f"🟦 Aqua Kosong : {st.session_state.stok_aqua_kosong}"
-        )
-    
-        st.write(
-            f"🟩 Le Minerale Kosong : {st.session_state.stok_leminerale_kosong}"
-        )
-    
-        st.write(
-            f"💧 Air Isi Ulang : {st.session_state.stok_air_isi_ulang} Liter"
-        )
-    
-        # WARNING
-        if st.session_state.stok_aqua_isi < 10:
-           st.warning("⚠️ Stok Aqua isi hampir habis!")
-    
-        if st.session_state.stok_leminerale_isi < 10:
-           st.warning("⚠️ Stok Le Minerale isi hampir habis!")
+    st.title("💧 Dashboard💧")
 
+    st.markdown("""
+    <div style="
+    background-color:#f5f7fa;
+    padding:25px;
+    border-radius:15px;
+    box-shadow:0 4px 10px rgba(0,0,0,0.1);
+    color:#333333;
+    ">
+
+    <h2 style="color:#1f4e79;">📌 Informasi Usaha</h2>
+
+    <p style="text-align:justify; font-size:16px; color:#333333;">
+    Selamat datang di <b>Ranto Mudo Water</b>.
+    </p>
+
+    </div>
+    """, unsafe_allow_html=True)
+
+    col1, col2, col3, col4 = st.columns(4)
+
+    col1.metric(
+        "Pelanggan",
+        len(st.session_state.pelanggan)
+    )
+
+    col2.metric(
+        "Aqua Isi",
+        st.session_state.stok_aqua_isi
+    )
+
+    col3.metric(
+        "Le Minerale Isi",
+        st.session_state.stok_leminerale_isi
+    )
+
+    total_penjualan = (
+        st.session_state.penjualan["Total"].sum()
+        if not st.session_state.penjualan.empty
+        else 0
+    )
+
+    col4.metric(
+        "Total Penjualan",
+        f"Rp {total_penjualan:,}"
+    )
+
+    st.divider()
+
+    st.subheader("📦 Informasi Stok")
+
+    st.write(
+        f"🟦 Aqua Kosong : {st.session_state.stok_aqua_kosong}"
+    )
+
+    st.write(
+        f"🟩 Le Minerale Kosong : {st.session_state.stok_leminerale_kosong}"
+    )
+
+    st.write(
+        f"💧 Air Isi Ulang : {st.session_state.stok_air_isi_ulang} Liter"
+    )
+
+    if st.session_state.stok_aqua_isi < 10:
+        st.warning("⚠️ Stok Aqua isi hampir habis!")
+
+    if st.session_state.stok_leminerale_isi < 10:
+        st.warning("⚠️ Stok Le Minerale isi hampir habis!")
 # =========================
 # DATA PELANGGAN
 # =========================
