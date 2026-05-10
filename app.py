@@ -127,8 +127,6 @@ else:
 
         <p style="text-align:justify;">
         Sistem ini dikembangkan untuk mempermudah pengelolaan data pelanggan, monitoring stok galon, pencatatan transaksi, pengelolaan tagihan, hingga penyusunan laporan usaha secara otomatis dalam satu platform.
-        stok galon, transaksi penjualan, tagihan,
-        dan laporan usaha secara otomatis.
         </p>
 
         </div>
