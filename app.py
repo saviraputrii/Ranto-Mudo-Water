@@ -96,7 +96,7 @@ else:
  # =========================
  # DASHBOARD
  # =========================
-    if menu == "Dashboard":
+   if menu == "Dashboard":
        st.title("💧 Dashboard💧")
        st.markdown("""
        <div style="
