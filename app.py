@@ -93,115 +93,115 @@ else:
 
     if "stok_air_isi_ulang" not in st.session_state:
         st.session_state.stok_air_isi_ulang = 1520
-# =========================
-# DASHBOARD
-# =========================
-   if menu == "Dashboard":
-
-    st.title("💧 Dashboard💧")
-
-    st.markdown("""
-    <div style="
-    background-color:#f5f7fa;
-    padding:25px;
-    border-radius:15px;
-    box-shadow:0 4px 10px rgba(0,0,0,0.1);
-    color:#333333;
-    ">
-
-    <h2 style="color:#1f4e79;">📌 Informasi Usaha</h2>
-
-    <p style="text-align:justify; font-size:16px; color:#333333;">
-    Selamat datang di <b>Ranto Mudo Water</b>.
-    </p>
-
-    </div>
-    """, unsafe_allow_html=True)
-
-    col1, col2, col3, col4 = st.columns(4)
-
-    col1.metric(
-        "Pelanggan",
-        len(st.session_state.pelanggan)
-    )
-
-    col2.metric(
-        "Aqua Isi",
-        st.session_state.stok_aqua_isi
-    )
-
-    col3.metric(
-        "Le Minerale Isi",
-        st.session_state.stok_leminerale_isi
-    )
-
-    total_penjualan = (
-        st.session_state.penjualan["Total"].sum()
-        if not st.session_state.penjualan.empty
-        else 0
-    )
-
-    col4.metric(
-        "Total Penjualan",
-        f"Rp {total_penjualan:,}"
-    )
-
-    st.divider()
-
-    st.subheader("📦 Informasi Stok")
-
-    st.write(
-        f"🟦 Aqua Kosong : {st.session_state.stok_aqua_kosong}"
-    )
-
-    st.write(
-        f"🟩 Le Minerale Kosong : {st.session_state.stok_leminerale_kosong}"
-    )
-
-    st.write(
-        f"💧 Air Isi Ulang : {st.session_state.stok_air_isi_ulang} Liter"
-    )
-
-    if st.session_state.stok_aqua_isi < 10:
-        st.warning("⚠️ Stok Aqua isi hampir habis!")
-
-    if st.session_state.stok_leminerale_isi < 10:
-        st.warning("⚠️ Stok Le Minerale isi hampir habis!")
-# =========================
-# DATA PELANGGAN
-# =========================
-elif menu == "Data Pelanggan":
-
-    st.title("👥 Data Pelanggan")
-
-    with st.form("form_pelanggan"):
-        nama = st.text_input("Nama")
-        alamat = st.text_input("Alamat")
-        hp = st.text_input("No HP")
-
-        submit = st.form_submit_button("Tambah Pelanggan")
-
-        if submit:
-            data_baru = pd.DataFrame([{
-                "Nama": nama,
-                "Alamat": alamat,
-                "No HP": hp
-            }])
-
-            st.session_state.pelanggan = pd.concat(
-                [st.session_state.pelanggan, data_baru],
-                ignore_index=True
-            )
-
-            st.success("Pelanggan berhasil ditambahkan!")
-
-    # Tampilkan data pelanggan
-    st.dataframe(
-        st.session_state.pelanggan,
-        use_container_width=True
-    )
-
-    st.divider()
+    # =========================
+    # DASHBOARD
+    # =========================
+       if menu == "Dashboard":
+    
+        st.title("💧 Dashboard💧")
+    
+        st.markdown("""
+        <div style="
+        background-color:#f5f7fa;
+        padding:25px;
+        border-radius:15px;
+        box-shadow:0 4px 10px rgba(0,0,0,0.1);
+        color:#333333;
+        ">
+    
+        <h2 style="color:#1f4e79;">📌 Informasi Usaha</h2>
+    
+        <p style="text-align:justify; font-size:16px; color:#333333;">
+        Selamat datang di <b>Ranto Mudo Water</b>.
+        </p>
+    
+        </div>
+        """, unsafe_allow_html=True)
+    
+        col1, col2, col3, col4 = st.columns(4)
+    
+        col1.metric(
+            "Pelanggan",
+            len(st.session_state.pelanggan)
+        )
+    
+        col2.metric(
+            "Aqua Isi",
+            st.session_state.stok_aqua_isi
+        )
+    
+        col3.metric(
+            "Le Minerale Isi",
+            st.session_state.stok_leminerale_isi
+        )
+    
+        total_penjualan = (
+            st.session_state.penjualan["Total"].sum()
+            if not st.session_state.penjualan.empty
+            else 0
+        )
+    
+        col4.metric(
+            "Total Penjualan",
+            f"Rp {total_penjualan:,}"
+        )
+    
+        st.divider()
+    
+        st.subheader("📦 Informasi Stok")
+    
+        st.write(
+            f"🟦 Aqua Kosong : {st.session_state.stok_aqua_kosong}"
+        )
+    
+        st.write(
+            f"🟩 Le Minerale Kosong : {st.session_state.stok_leminerale_kosong}"
+        )
+    
+        st.write(
+            f"💧 Air Isi Ulang : {st.session_state.stok_air_isi_ulang} Liter"
+        )
+    
+        if st.session_state.stok_aqua_isi < 10:
+            st.warning("⚠️ Stok Aqua isi hampir habis!")
+    
+        if st.session_state.stok_leminerale_isi < 10:
+            st.warning("⚠️ Stok Le Minerale isi hampir habis!")
+    # =========================
+    # DATA PELANGGAN
+    # =========================
+    elif menu == "Data Pelanggan":
+    
+        st.title("👥 Data Pelanggan")
+    
+        with st.form("form_pelanggan"):
+            nama = st.text_input("Nama")
+            alamat = st.text_input("Alamat")
+            hp = st.text_input("No HP")
+    
+            submit = st.form_submit_button("Tambah Pelanggan")
+    
+            if submit:
+                data_baru = pd.DataFrame([{
+                    "Nama": nama,
+                    "Alamat": alamat,
+                    "No HP": hp
+                }])
+    
+                st.session_state.pelanggan = pd.concat(
+                    [st.session_state.pelanggan, data_baru],
+                    ignore_index=True
+                )
+    
+                st.success("Pelanggan berhasil ditambahkan!")
+    
+        # Tampilkan data pelanggan
+        st.dataframe(
+            st.session_state.pelanggan,
+            use_container_width=True
+        )
+    
+        st.divider()
 
     # =========================
     # HAPUS DATA PELANGGAN
