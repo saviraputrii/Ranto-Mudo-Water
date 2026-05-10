@@ -2,18 +2,27 @@ import streamlit as st
 import pandas as pd
 from datetime import datetime
 
-# =========================
+# ====================================
+# KONFIGURASI HALAMAN
+# ====================================
+st.set_page_config(
+    page_title="Ranto Mudo Water",
+    page_icon="💧",
+    layout="wide"
+)
+
+# ====================================
 # LOGIN ADMIN
-# =========================
+# ====================================
 if "login" not in st.session_state:
     st.session_state.login = False
 
 USERNAME = "admin"
 PASSWORD = "air123"
 
-# =========================
+# ====================================
 # HALAMAN LOGIN
-# =========================
+# ====================================
 if not st.session_state.login:
 
     st.title("🔐 Login Admin")
@@ -31,14 +40,14 @@ if not st.session_state.login:
         else:
             st.error("Username atau password salah!")
 
-# =========================
-# JIKA SUDAH LOGIN
-# =========================
+# ====================================
+# SETELAH LOGIN
+# ====================================
 else:
 
-    # =========================
+    # ====================================
     # SIDEBAR
-    # =========================
+    # ====================================
     st.sidebar.title("💧 Ranto Mudo Water")
 
     if st.sidebar.button("Logout"):
@@ -46,7 +55,7 @@ else:
         st.rerun()
 
     menu = st.sidebar.radio(
-        "Menu",
+        "Pilih Menu",
         [
             "Dashboard",
             "Data Pelanggan",
@@ -54,30 +63,27 @@ else:
             "Penjualan",
             "Tagihan",
             "Laporan",
-            "Pendapatan Bulanan",
+            "Pendapatan Bulanan"
         ]
     )
 
-    # =========================
+    # ====================================
     # DATABASE SEMENTARA
-    # =========================
+    # ====================================
     if "pelanggan" not in st.session_state:
-        st.session_state.pelanggan = pd.DataFrame(columns=[
-            "Nama", "Alamat", "No HP"
-        ])
-
-    if "stok_air_kosong" not in st.session_state:
-        st.session_state.stok_air_kosong = 30
+        st.session_state.pelanggan = pd.DataFrame(
+            columns=["Nama", "Alamat", "No HP"]
+        )
 
     if "penjualan" not in st.session_state:
-        st.session_state.penjualan = pd.DataFrame(columns=[
-            "Tanggal", "Pelanggan", "Jenis", "Jumlah", "Total"
-        ])
+        st.session_state.penjualan = pd.DataFrame(
+            columns=["Tanggal", "Pelanggan", "Jenis", "Jumlah", "Total"]
+        )
 
     if "hutang" not in st.session_state:
-        st.session_state.hutang = pd.DataFrame(columns=[
-            "Pelanggan", "Jumlah Hutang"
-        ])
+        st.session_state.hutang = pd.DataFrame(
+            columns=["Pelanggan", "Jumlah Hutang"]
+        )
 
     if "stok_aqua_isi" not in st.session_state:
         st.session_state.stok_aqua_isi = 50
@@ -93,541 +99,457 @@ else:
 
     if "stok_air_isi_ulang" not in st.session_state:
         st.session_state.stok_air_isi_ulang = 1520
- # =========================
- # DASHBOARD
- # =========================
+
+    # ====================================
+    # DASHBOARD
+    # ====================================
     if menu == "Dashboard":
-       st.title("💧 Dashboard💧")
-       st.markdown("""
-       <div style="
-       background-color:#f5f7fa;
-       padding:25px;
-       border-radius:15px;
-       box-shadow:0 4px 10px rgba(0,0,0,0.1);
-       color:#333333;
-       ">  
-       <h2 style="color:#1f4e79;">📌 Informasi Usaha</h2>
-            
-       <p style="text-align:justify; font-size:16px; color:#333333;">
-    
-       Selamat datang di <b>Ranto Mudo Water</b>, aplikasi manajemen  air galon isi ulang yang dirancang untuk membantu proses operasional usaha menjadi efisien dan terorganisir. Sistem ini dikembangkan untuk mempermudah pengelolaan data pelanggan, monitoring stok galon, pencatatan transaksi penjualan, pengelolaan tagihan, hingga penyusunan laporan usaha secara otomatis dalam satu platform.
-    
-       </p>
-    
-       <p style="text-align:justify; font-size:16px; color:#333333;">
-    
-       Dengan tampilan yang sederhana namun profesional, aplikasi ini membantu meningkatkan efisiensi pelayanan, meminimalkan kesalahan pencatatan data, serta mempermudah pemilik usaha dalam memantau kondisi bisnis secara real-time. Seluruh informasi tersusun secara rapi sehingga proses pengambilan keputusan dapat dilakukan dengan lebih cepat, tepat, dan akurat.
-    
-       </p>
-    
-       <p style="text-align:justify; font-size:16px; color:#333333;">
-    
-       Melalui sistem digital berbasis <b>Streamlit</b>, pengelolaan depot air minum isi ulang dapat dilakukan dengan lebih praktis, aman, dan mudah diakses kapan saja sesuai kebutuhan operasional usaha.
-    
-       </p>
-    
-       </div>
-       """, unsafe_allow_html=True)
-    
-       col1, col2, col3, col4 = st.columns(4)
-    
-       col1.metric(
-            "Pelanggan",
-            len(st.session_state.pelanggan)
-        )
-    
-       col2.metric(
-            "Aqua Isi",
-            st.session_state.stok_aqua_isi
-        )
-    
-       col3.metric(
-            "Le Minerale Isi",
-            st.session_state.stok_leminerale_isi
-        )
-    
+
+        st.title("💧 Dashboard")
+
+        st.markdown("""
+        <div style="
+        background-color:#f5f7fa;
+        padding:25px;
+        border-radius:15px;
+        box-shadow:0 4px 10px rgba(0,0,0,0.1);
+        color:#333333;
+        ">
+        <h2 style="color:#1f4e79;">📌 Informasi Usaha</h2>
+
+        <p style="text-align:justify;">
+        Selamat datang di <b>Ranto Mudo Water</b>,
+        aplikasi manajemen depot air galon isi ulang.
+        </p>
+
+        <p style="text-align:justify;">
+        Aplikasi ini membantu pengelolaan pelanggan,
+        stok galon, transaksi penjualan,
+        tagihan, dan laporan usaha.
+        </p>
+
+        </div>
+        """, unsafe_allow_html=True)
+
+        col1, col2, col3, col4 = st.columns(4)
+
         total_penjualan = (
             st.session_state.penjualan["Total"].sum()
             if not st.session_state.penjualan.empty
             else 0
         )
-    
+
+        col1.metric(
+            "Pelanggan",
+            len(st.session_state.pelanggan)
+        )
+
+        col2.metric(
+            "Aqua Isi",
+            st.session_state.stok_aqua_isi
+        )
+
+        col3.metric(
+            "Le Minerale Isi",
+            st.session_state.stok_leminerale_isi
+        )
+
         col4.metric(
             "Total Penjualan",
             f"Rp {total_penjualan:,}"
         )
-    
+
         st.divider()
-    
-        # INFO STOK
+
         st.subheader("📦 Informasi Stok")
-    
+
         st.write(
             f"🟦 Aqua Kosong : {st.session_state.stok_aqua_kosong}"
         )
-    
+
         st.write(
             f"🟩 Le Minerale Kosong : {st.session_state.stok_leminerale_kosong}"
         )
-    
+
         st.write(
             f"💧 Air Isi Ulang : {st.session_state.stok_air_isi_ulang} Liter"
         )
-    
-        # WARNING
+
         if st.session_state.stok_aqua_isi < 10:
-           st.warning("⚠️ Stok Aqua isi hampir habis!")
-    
+            st.warning("⚠️ Stok Aqua isi hampir habis!")
+
         if st.session_state.stok_leminerale_isi < 10:
-           st.warning("⚠️ Stok Le Minerale isi hampir habis!")
+            st.warning("⚠️ Stok Le Minerale isi hampir habis!")
 
-# =========================
-# DATA PELANGGAN
-# =========================
-elif menu == "Data Pelanggan":
+    # ====================================
+    # DATA PELANGGAN
+    # ====================================
+    elif menu == "Data Pelanggan":
 
-    st.title("👥 Data Pelanggan")
+        st.title("👥 Data Pelanggan")
 
-    with st.form("form_pelanggan"):
-        nama = st.text_input("Nama")
-        alamat = st.text_input("Alamat")
-        hp = st.text_input("No HP")
+        with st.form("form_pelanggan"):
 
-        submit = st.form_submit_button("Tambah Pelanggan")
+            nama = st.text_input("Nama")
+            alamat = st.text_input("Alamat")
+            hp = st.text_input("No HP")
 
-        if submit:
-            data_baru = pd.DataFrame([{
-                "Nama": nama,
-                "Alamat": alamat,
-                "No HP": hp
-            }])
+            submit = st.form_submit_button("Tambah Pelanggan")
 
-            st.session_state.pelanggan = pd.concat(
-                [st.session_state.pelanggan, data_baru],
-                ignore_index=True
+            if submit:
+
+                data_baru = pd.DataFrame([{
+                    "Nama": nama,
+                    "Alamat": alamat,
+                    "No HP": hp
+                }])
+
+                st.session_state.pelanggan = pd.concat(
+                    [st.session_state.pelanggan, data_baru],
+                    ignore_index=True
+                )
+
+                st.success("Pelanggan berhasil ditambahkan!")
+
+        st.dataframe(
+            st.session_state.pelanggan,
+            use_container_width=True
+        )
+
+        st.divider()
+
+        st.subheader("🗑️ Hapus Pelanggan")
+
+        if not st.session_state.pelanggan.empty:
+
+            pelanggan_hapus = st.selectbox(
+                "Pilih pelanggan",
+                st.session_state.pelanggan["Nama"]
             )
 
-            st.success("Pelanggan berhasil ditambahkan!")
+            if st.button("Hapus"):
 
-    # Tampilkan data pelanggan
-    st.dataframe(
-        st.session_state.pelanggan,
-        use_container_width=True
-    )
+                st.session_state.pelanggan = (
+                    st.session_state.pelanggan[
+                        st.session_state.pelanggan["Nama"] != pelanggan_hapus
+                    ]
+                )
 
-    st.divider()
+                st.success("Data pelanggan berhasil dihapus!")
 
-    # =========================
-    # HAPUS DATA PELANGGAN
-    # =========================
-    st.subheader("🗑️ Hapus Data Pelanggan")
+    # ====================================
+    # STOK GALON
+    # ====================================
+    elif menu == "Stok Galon":
 
-    if not st.session_state.pelanggan.empty:
+        st.title("📦 Stok Galon")
 
-        pelanggan_hapus = st.selectbox(
-            "Pilih pelanggan yang akan dihapus",
-            st.session_state.pelanggan["Nama"]
-        )
+        st.subheader("AQUA")
 
-        if st.button("Hapus Pelanggan"):
+        col1, col2 = st.columns(2)
 
-            st.session_state.pelanggan = (
-                st.session_state.pelanggan[
-                    st.session_state.pelanggan["Nama"] != pelanggan_hapus
-                ]
+        with col1:
+
+            tambah_aqua_isi = st.number_input(
+                "Tambah Aqua Isi",
+                min_value=0,
+                step=1
             )
 
-            st.success(
-                f"Data pelanggan '{pelanggan_hapus}' berhasil dihapus!"
+            if st.button("Tambah Aqua Isi"):
+
+                st.session_state.stok_aqua_isi += tambah_aqua_isi
+                st.success("Stok Aqua isi berhasil ditambah")
+
+        with col2:
+
+            tambah_aqua_kosong = st.number_input(
+                "Tambah Aqua Kosong",
+                min_value=0,
+                step=1
             )
 
-    else:
-        st.info("Belum ada data pelanggan.")
+            if st.button("Tambah Aqua Kosong"):
 
-# =========================
-# STOK GALON
-# =========================
-elif menu == "Stok Galon":
+                st.session_state.stok_aqua_kosong += tambah_aqua_kosong
+                st.success("Stok Aqua kosong berhasil ditambah")
 
-    st.title("📦 Stok Galon")
+        st.divider()
 
-    # =========================
-    # AQUA
-    # =========================
-    st.subheader("AQUA")
+        st.subheader("LE MINERALE")
 
-    col1, col2 = st.columns(2)
+        col3, col4 = st.columns(2)
 
-    with col1:
-        tambah_aqua_isi = st.number_input(
-            "Tambah Stok Aqua Isi",
+        with col3:
+
+            tambah_leminerale_isi = st.number_input(
+                "Tambah Le Minerale Isi",
+                min_value=0,
+                step=1
+            )
+
+            if st.button("Tambah Le Minerale Isi"):
+
+                st.session_state.stok_leminerale_isi += tambah_leminerale_isi
+                st.success("Stok Le Minerale isi berhasil ditambah")
+
+        with col4:
+
+            tambah_leminerale_kosong = st.number_input(
+                "Tambah Le Minerale Kosong",
+                min_value=0,
+                step=1
+            )
+
+            if st.button("Tambah Le Minerale Kosong"):
+
+                st.session_state.stok_leminerale_kosong += tambah_leminerale_kosong
+                st.success("Stok Le Minerale kosong berhasil ditambah")
+
+        st.divider()
+
+        st.subheader("💧 Air Isi Ulang")
+
+        tambah_air = st.number_input(
+            "Tambah Air Isi Ulang",
             min_value=0,
-            step=1
+            step=10
         )
 
-        if st.button("Tambah Aqua Isi"):
-            st.session_state.stok_aqua_isi += tambah_aqua_isi
-            st.success("Stok Aqua isi berhasil ditambah")
+        if st.button("Tambah Air"):
 
-    with col2:
-        tambah_aqua_kosong = st.number_input(
-            "Tambah Stok Aqua Kosong",
-            min_value=0,
-            step=1
+            st.session_state.stok_air_isi_ulang += tambah_air
+            st.success("Stok air berhasil ditambah")
+
+        st.divider()
+
+        st.subheader("📦 Total Stok")
+
+        col1, col2, col3, col4 = st.columns(4)
+
+        col1.metric(
+            "Aqua Isi",
+            st.session_state.stok_aqua_isi
         )
 
-        if st.button("Tambah Aqua Kosong"):
-            st.session_state.stok_aqua_kosong += tambah_aqua_kosong
-            st.success("Stok Aqua kosong berhasil ditambah")
-
-    st.divider()
-
-    # =========================
-    # LE MINERALE
-    # =========================
-    st.subheader("LE MINERALE")
-
-    col3, col4 = st.columns(2)
-
-    with col3:
-        tambah_leminerale_isi = st.number_input(
-            "Tambah Stok Le Minerale Isi",
-            min_value=0,
-            step=1
+        col2.metric(
+            "Aqua Kosong",
+            st.session_state.stok_aqua_kosong
         )
 
-        if st.button("Tambah Le Minerale Isi"):
-            st.session_state.stok_leminerale_isi += tambah_leminerale_isi
-            st.success("Stok Le Minerale isi berhasil ditambah")
-
-    with col4:
-        tambah_leminerale_kosong = st.number_input(
-            "Tambah Stok Le Minerale Kosong",
-            min_value=0,
-            step=1
+        col3.metric(
+            "Le Minerale Isi",
+            st.session_state.stok_leminerale_isi
         )
 
-        if st.button("Tambah Le Minerale Kosong"):
-            st.session_state.stok_leminerale_kosong += tambah_leminerale_kosong
-            st.success("Stok Le Minerale kosong berhasil ditambah")
+        col4.metric(
+            "Le Minerale Kosong",
+            st.session_state.stok_leminerale_kosong
+        )
 
-    st.divider()
-
-    # =========================
-    # AIR ISI ULANG
-    # =========================
-    st.subheader("💧 Air Isi Ulang")
-
-    tambah_air = st.number_input(
-        "Tambah Stok Air Isi Ulang (Liter)",
-        min_value=0,
-        step=10
-    )
-
-    if st.button("Tambah Air Isi Ulang"):
-        st.session_state.stok_air_isi_ulang += tambah_air
-        st.success("Stok air isi ulang berhasil ditambah")
-    col1, col2 = st.columns(2)
-
-    with col1:
         st.metric(
-            "Stok Air Isi Ulang",
-            f"{st.session_state.stok_air_isi_ulang} L"
+            "Air Isi Ulang",
+            f"{st.session_state.stok_air_isi_ulang} Liter"
         )
 
-    with col2:
+    # ====================================
+    # PENJUALAN
+    # ====================================
+    elif menu == "Penjualan":
 
-        total_isi_ulang = (
-            st.session_state.penjualan[
-                st.session_state.penjualan["Jenis"] == "ISI ULANG"
-            ]["Jumlah"].sum()
+        st.title("💰 Penjualan")
+
+        pelanggan_list = (
+            st.session_state.pelanggan["Nama"].tolist()
+            if not st.session_state.pelanggan.empty
+            else []
+        )
+
+        with st.form("form_penjualan"):
+
+            pelanggan = st.selectbox(
+                "Pelanggan",
+                pelanggan_list
+            )
+
+            jenis = st.selectbox(
+                "Jenis Galon",
+                ["AQUA", "LE MINERALE", "ISI ULANG"]
+            )
+
+            jumlah = st.number_input(
+                "Jumlah",
+                min_value=1,
+                step=1
+            )
+
+            harga = st.number_input(
+                "Harga",
+                min_value=0,
+                step=1000
+            )
+
+            submit = st.form_submit_button("Simpan")
+
+            if submit:
+
+                total = jumlah * harga
+
+                data_jual = pd.DataFrame([{
+                    "Tanggal": datetime.now().strftime("%Y-%m-%d"),
+                    "Pelanggan": pelanggan,
+                    "Jenis": jenis,
+                    "Jumlah": jumlah,
+                    "Total": total
+                }])
+
+                st.session_state.penjualan = pd.concat(
+                    [st.session_state.penjualan, data_jual],
+                    ignore_index=True
+                )
+
+                if jenis == "AQUA":
+                    st.session_state.stok_aqua_isi -= jumlah
+                    st.session_state.stok_aqua_kosong += jumlah
+
+                elif jenis == "LE MINERALE":
+                    st.session_state.stok_leminerale_isi -= jumlah
+                    st.session_state.stok_leminerale_kosong += jumlah
+
+                elif jenis == "ISI ULANG":
+                    st.session_state.stok_air_isi_ulang -= jumlah * 19
+
+                st.success("Penjualan berhasil disimpan!")
+
+        st.dataframe(
+            st.session_state.penjualan,
+            use_container_width=True
+        )
+
+    # ====================================
+    # TAGIHAN
+    # ====================================
+    elif menu == "Tagihan":
+
+        st.title("📝 Tagihan")
+
+        pelanggan_list = (
+            st.session_state.pelanggan["Nama"].tolist()
+            if not st.session_state.pelanggan.empty
+            else []
+        )
+
+        with st.form("form_tagihan"):
+
+            pelanggan = st.selectbox(
+                "Pelanggan",
+                pelanggan_list
+            )
+
+            jumlah_tagihan = st.number_input(
+                "Jumlah Tagihan",
+                min_value=0,
+                step=1000
+            )
+
+            submit = st.form_submit_button("Tambah Tagihan")
+
+            if submit:
+
+                data_hutang = pd.DataFrame([{
+                    "Pelanggan": pelanggan,
+                    "Jumlah Hutang": jumlah_tagihan
+                }])
+
+                st.session_state.hutang = pd.concat(
+                    [st.session_state.hutang, data_hutang],
+                    ignore_index=True
+                )
+
+                st.success("Tagihan berhasil ditambahkan!")
+
+        st.dataframe(
+            st.session_state.hutang,
+            use_container_width=True
+        )
+
+    # ====================================
+    # LAPORAN
+    # ====================================
+    elif menu == "Laporan":
+
+        st.title("📊 Laporan")
+
+        total_penjualan = (
+            st.session_state.penjualan["Total"].sum()
             if not st.session_state.penjualan.empty
             else 0
         )
 
-        
-      # =========================
-      # TOTAL STOK
-      # =========================
-        st.subheader("📦 Total Stok")
-        
-        col1, col2, col3, col4 = st.columns(4)
-        
-        with col1:
+        total_transaksi = len(st.session_state.penjualan)
+
+        total_hutang = (
+            st.session_state.hutang["Jumlah Hutang"].sum()
+            if not st.session_state.hutang.empty
+            else 0
+        )
+
+        col1, col2, col3 = st.columns(3)
+
+        col1.metric(
+            "Total Penjualan",
+            f"Rp {total_penjualan:,}"
+        )
+
+        col2.metric(
+            "Jumlah Transaksi",
+            total_transaksi
+        )
+
+        col3.metric(
+            "Total Hutang",
+            f"Rp {total_hutang:,}"
+        )
+
+    # ====================================
+    # PENDAPATAN BULANAN
+    # ====================================
+    elif menu == "Pendapatan Bulanan":
+
+        st.title("📆 Pendapatan Bulanan")
+
+        if not st.session_state.penjualan.empty:
+
+            df = st.session_state.penjualan.copy()
+
+            df["Tanggal"] = pd.to_datetime(df["Tanggal"])
+
+            df["Bulan"] = df["Tanggal"].dt.strftime("%B %Y")
+
+            pendapatan = (
+                df.groupby("Bulan")["Total"]
+                .sum()
+                .reset_index()
+            )
+
+            total = pendapatan["Total"].sum()
+
             st.metric(
-                "Aqua Isi",
-                st.session_state.stok_aqua_isi
-            )
-        
-        with col2:
-            st.metric(
-                "Aqua Kosong",
-                st.session_state.stok_aqua_kosong
-            )
-        
-        with col3:
-            st.metric(
-                "Le Minerale Isi",
-                st.session_state.stok_leminerale_isi
-            )
-        
-        with col4:
-            st.metric(
-                "Le Minerale Kosong",
-                st.session_state.stok_leminerale_kosong
-            )
-        
-# =========================
-# PENJUALAN
-# =========================
-elif menu == "Penjualan":
-
-    st.title("💰 Penjualan")
-
-    pelanggan_list = (
-        st.session_state.pelanggan["Nama"].tolist()
-        if not st.session_state.pelanggan.empty
-        else []
-    )
-
-    with st.form("form_penjualan"):
-
-        pelanggan = st.selectbox(
-            "Pilih Pelanggan",
-            pelanggan_list
-        )
-
-        jenis_galon = st.selectbox(
-            "Galon yang Dibeli",
-            [
-                "AQUA",
-                "LE MINERALE",
-                "ISI ULANG"
-            ]
-        )
-
-        jumlah = st.number_input(
-            "Jumlah Galon",
-            min_value=1,
-            step=1
-        )
-
-        harga = st.number_input(
-            "Harga per Galon",
-            min_value=0,
-            step=1000
-        )
-
-        submit_jual = st.form_submit_button(
-            "Simpan Penjualan"
-        )
-
-        if submit_jual:
-
-            total = jumlah * harga
-
-            data_jual = pd.DataFrame([{
-                "Tanggal": datetime.now().strftime("%Y-%m-%d"),
-                "Pelanggan": pelanggan,
-                "Jenis": jenis_galon,
-                "Jumlah": jumlah,
-                "Total": total
-            }])
-
-            st.session_state.penjualan = pd.concat(
-                [st.session_state.penjualan, data_jual],
-                ignore_index=True
+                "Total Pendapatan",
+                f"Rp {total:,}"
             )
 
-            # UPDATE STOK
-            if jenis_galon == "AQUA":
-
-                st.session_state.stok_aqua_isi -= jumlah
-                st.session_state.stok_aqua_kosong += jumlah
-
-            elif jenis_galon == "LE MINERALE":
-
-                st.session_state.stok_leminerale_isi -= jumlah
-                st.session_state.stok_leminerale_kosong += jumlah
-
-            elif jenis_galon == "ISI ULANG":
-
-                st.session_state.stok_air_isi_ulang -= (
-                    jumlah * 19
-                )
-
-            st.success("Penjualan berhasil disimpan!")
-
-    st.dataframe(
-        st.session_state.penjualan,
-        use_container_width=True
-    )
-
-    # =========================
-    # HAPUS DATA PENJUALAN
-    # =========================
-    st.divider()
-
-    st.subheader("🗑️ Hapus Data Penjualan")
-
-    if not st.session_state.penjualan.empty:
-
-        pilih_hapus = st.selectbox(
-            "Pilih data penjualan",
-            st.session_state.penjualan.index
-        )
-
-        if st.button("Hapus Penjualan"):
-
-            # Ambil data sebelum dihapus
-            data_hapus = st.session_state.penjualan.loc[pilih_hapus]
-
-            jenis = data_hapus["Jenis"]
-            jumlah = data_hapus["Jumlah"]
-
-            # Kembalikan stok
-            if jenis == "AQUA":
-                st.session_state.stok_aqua_isi += jumlah
-                st.session_state.stok_aqua_kosong -= jumlah
-
-            elif jenis == "LE MINERALE":
-                st.session_state.stok_leminerale_isi += jumlah
-                st.session_state.stok_leminerale_kosong -= jumlah
-
-            elif jenis == "ISI ULANG":
-                st.session_state.stok_air_isi_ulang += jumlah * 19
-
-            # Hapus data penjualan
-            st.session_state.penjualan = (
-                st.session_state.penjualan.drop(pilih_hapus)
-                .reset_index(drop=True)
+            st.dataframe(
+                pendapatan,
+                use_container_width=True
             )
 
-            st.success("Data penjualan berhasil dihapus!")
+        else:
+            st.info("Belum ada data penjualan")
 
-    else:
-        st.info("Belum ada data penjualan.")
+        st.subheader("Data Penjualan")
 
-    
-# =========================
-# TAGIHAN
-# =========================
-elif menu == "Tagihan":
-
-    st.title("📝 Tagihan 💸")
-
-    pelanggan_list = (
-        st.session_state.pelanggan["Nama"].tolist()
-        if not st.session_state.pelanggan.empty
-        else []
-    )
-
-    with st.form("form_tagihan"):
-
-        pelanggan = st.selectbox(
-            "Pelanggan",
-            pelanggan_list
-        )
-
-        jumlah_tagihan = st.number_input(
-            "Jumlah Tagihan",
-            min_value=0,
-            step=1000
-        )
-
-        submit_tagihan = st.form_submit_button("Tambah Tagihan")
-
-        if submit_tagihan:
-
-            data_hutang = pd.DataFrame([{
-                "Pelanggan": pelanggan,
-                "Jumlah Hutang": jumlah_tagihan
-            }])
-
-            st.session_state.hutang = pd.concat(
-                [st.session_state.hutang, data_hutang],
-                ignore_index=True
-            )
-
-            st.success("Data tagihan berhasil ditambahkan!")
-
-    st.dataframe(st.session_state.hutang, use_container_width=True)
-
-# =========================
-# LAPORAN
-# =========================
-elif menu == "Laporan":
-
-    st.title("📊 Laporan")
-
-    total_penjualan = st.session_state.penjualan["Total"].sum() \
-        if not st.session_state.penjualan.empty else 0
-
-    total_transaksi = len(st.session_state.penjualan)
-
-    total_hutang = st.session_state.hutang["Jumlah Hutang"].sum() \
-        if not st.session_state.hutang.empty else 0
-
-    col1, col2, col3 = st.columns(3)
-
-    col1.metric("Total Penjualan", f"Rp {total_penjualan:,}")
-    col2.metric("Jumlah Transaksi", total_transaksi)
-    col3.metric("Total Tagihan", f"Rp {total_hutang:,}")
-
-    st.divider()
-
-# =========================
-# PENDAPATAN BULANAN
-# =========================
-elif menu == "Pendapatan Bulanan":
-
-    st.title("📆 Pendapatan Bulanan")
-
-    if not st.session_state.penjualan.empty:
-
-        # Copy data penjualan
-        df_penjualan = st.session_state.penjualan.copy()
-
-        # Ubah kolom tanggal menjadi datetime
-        df_penjualan["Tanggal"] = pd.to_datetime(
-            df_penjualan["Tanggal"]
-        )
-
-        # Ambil format bulan dan tahun
-        df_penjualan["Bulan"] = (
-            df_penjualan["Tanggal"]
-            .dt.strftime("%B %Y")
-        )
-
-        # Hitung total pendapatan per bulan
-        pendapatan_bulanan = (
-            df_penjualan.groupby("Bulan")["Total"]
-            .sum()
-            .reset_index()
-        )
-
-        # Total seluruh pendapatan
-        total_bulanan = pendapatan_bulanan["Total"].sum()
-
-        # Tampilkan total
-        st.metric(
-            "Total Pendapatan",
-            f"Rp {total_bulanan:,}"
-        )
-
-        st.divider()
-
-        # Tabel pendapatan bulanan
         st.dataframe(
-            pendapatan_bulanan,
+            st.session_state.penjualan,
             use_container_width=True
         )
-
-    else:
-        st.info("Belum ada data penjualan.")
-
-    st.subheader("Data Penjualan")
-    st.dataframe(
-        st.session_state.penjualan,
-        use_container_width=True
-    )
